@@ -12,5 +12,3 @@ local.properties
 *.iml
 /build
 *.iml
-gradlew
-gradlew.bat
