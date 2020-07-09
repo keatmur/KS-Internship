@@ -8,4 +8,7 @@
     <dimen name="okCancel_marginStart">20dp</dimen>
     <dimen name="result_text_marginStart">120dp</dimen>
     <dimen name="result_text_marginTop">200dp</dimen>
+    <dimen name="defullButton_marginTop">50dp</dimen>
+    <dimen name="textView_marginStart">150dp</dimen>
+    <dimen name="textView_marginTop">200dp</dimen>
 </resources>
