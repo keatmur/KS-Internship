@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import model.Masseg;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void openActivityForResult() {
         Intent intent = new Intent(MainActivity.this, ForResult.class);
-        intent.putExtra(Constants.EXTRA_MESSAGE, input.getText().toString());
+        Masseg masseg =new Masseg(input.getText().toString());
+        intent.putExtra(Constants.EXTRA_MESSAGE,masseg );
         startActivityForResult(intent, Constants.RESULT_COD);
 
     }

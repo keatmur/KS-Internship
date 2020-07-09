@@ -2,6 +2,7 @@ package com.example.ks_internship.app.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import model.Masseg;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +15,8 @@ import com.example.ks_internship.app.utils.Constants;
 public class ForResult extends AppCompatActivity {
     private AppCompatButton ok;
     private AppCompatButton cancel;
-    TextView text;
+    private TextView text;
+    private Masseg masseg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,8 @@ public class ForResult extends AppCompatActivity {
 
     private void setResult() {
         if (getIntent().getExtras() != null) {
-            text.setText(getIntent().getStringExtra(Constants.EXTRA_MESSAGE));
+            masseg= getIntent().getExtras().getParcelable(Constants.EXTRA_MESSAGE);
+            text.setText(masseg.getText());
         }
     }
 
