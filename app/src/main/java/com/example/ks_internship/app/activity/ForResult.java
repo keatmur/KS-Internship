@@ -34,29 +34,27 @@ public class ForResult extends AppCompatActivity {
         text = findViewById(R.id.result_text);
     }
 
-    private void setResult(){
+    private void setResult() {
         if (getIntent().getExtras() != null) {
             text.setText(getIntent().getStringExtra(Constants.EXTRA_MESSAGE));
         }
     }
 
-    private void setListeners(){
+    private void setListeners() {
         Intent intent = new Intent();
-        ok.setOnClickListener(v->{
-            setResult(RESULT_OK,intent);
+        ok.setOnClickListener(v -> {
+            setResult(RESULT_OK, intent);
 
-            setResult(Activity.RESULT_OK,intent);
-            finish();
-        });
-        cancel.setOnClickListener(v->{
-            setResult(RESULT_CANCELED,intent);
-
-            setResult(Activity.RESULT_CANCELED,intent);
+            setResult(Activity.RESULT_OK, intent);
             finish();
         });
 
+        cancel.setOnClickListener(v -> {
+            setResult(RESULT_CANCELED, intent);
 
-
+            setResult(Activity.RESULT_CANCELED, intent);
+            finish();
+        });
     }
 
 }

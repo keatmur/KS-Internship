@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initViews();
         clicListeners();
     }
@@ -31,14 +32,8 @@ public class MainActivity extends AppCompatActivity {
         input = findViewById(R.id.input);
     }
 
-    private void clicListeners() {
-        button_input.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(input.getText())) {
-                Toast.makeText(MainActivity.this, "EROR", Toast.LENGTH_LONG).show();
-            } else {
-                openActivityForResult();
-            }
-        });
+    private void massegToast(String masseg) {
+        Toast.makeText(MainActivity.this, masseg, Toast.LENGTH_LONG).show();
     }
 
     private void openActivityForResult() {
@@ -48,13 +43,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void clicListeners() {
+        button_input.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(input.getText())) {
+                massegToast("ERROR");
+            } else {
+                openActivityForResult();
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.RESULT_COD) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
-            } else  {
+                massegToast("Success");
+            } else {
                 input.setText("");
             }
         }
