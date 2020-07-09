@@ -4,5 +4,8 @@
     <dimen name="ebitText_marginTop">150dp</dimen>
     <dimen name="button_marginHorizontal">160dp</dimen>
     <dimen name="button_marginTop">20dp</dimen>
-    <dimen name="defult_marginTop">250dp</dimen>
+    <dimen name="defult_marginTop">20dp</dimen>
+    <dimen name="okCancel_marginStart">20dp</dimen>
+    <dimen name="result_text_marginStart">120dp</dimen>
+    <dimen name="result_text_marginTop">200dp</dimen>
 </resources>

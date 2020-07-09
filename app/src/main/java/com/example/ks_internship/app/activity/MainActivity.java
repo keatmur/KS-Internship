@@ -43,22 +43,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void openActivityForResult() {
         Intent intent = new Intent(MainActivity.this, ForResult.class);
-        //intent.putExtra(Constants.EXTRA_MESSAGE, input.getText().toString());
-        startActivityForResult(intent,Constants.RESULT_COD);
+        intent.putExtra(Constants.EXTRA_MESSAGE, input.getText().toString());
+        startActivityForResult(intent, Constants.RESULT_COD);
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.RESULT_COD) {
-            if (data != null) {
-                if (data.getExtras() != null) {
-
-                }
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_LONG).show();
+            } else  {
+                input.setText("");
             }
         }
     }
-
-
-
 }

@@ -4,22 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".app.activity.ForResult">
 
-    <androidx.appcompat.widget.AppCompatButton
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/result_text"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+       android:layout_gravity="center"
+        android:layout_marginTop="@dimen/result_text_marginTop"
+        android:text="@string/text"
+        />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ok"
-        android:layout_marginTop="@dimen/defult_marginTop"
         android:layout_marginStart="100dp"
-        android:text="@string/ok"
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cancel"
-        android:layout_marginTop="@dimen/defult_marginTop"
-        android:layout_marginStart="20dp"
-        android:text="@string/cancel"
-        />
+        android:layout_marginTop="@dimen/defult_marginTop">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/okCancel_marginStart"
+
+            android:text="@string/cancel" />
+
+
+    </LinearLayout>
+
+
+
+
 </LinearLayout>
