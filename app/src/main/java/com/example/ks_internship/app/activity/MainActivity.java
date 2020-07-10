@@ -1,11 +1,13 @@
 package com.example.ks_internship.app.activity;
 
+import Base.BaseActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import android.content.Intent;
+import android.os.BaseBundle;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -13,7 +15,7 @@ import android.widget.Toast;
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.utils.Constants;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private AppCompatButton button_input;
     private AppCompatEditText input;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         clicListeners();
+        initToolbar(getString(R.string.main_activity_title));
     }
 
     private void initViews() {

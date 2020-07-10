@@ -1,5 +1,6 @@
 package com.example.ks_internship.app.activity;
 
+import Base.BaseActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -11,7 +12,7 @@ import android.widget.TextView;
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.utils.Constants;
 
-public class ForResult extends AppCompatActivity {
+public class ForResult extends BaseActivity {
     private AppCompatButton ok;
     private AppCompatButton cancel;
     TextView text;
@@ -24,6 +25,7 @@ public class ForResult extends AppCompatActivity {
         initViews();
         setResult();
         setListeners();
+        initToolbarWithNavigation(getString(R.string.secoond_activity_title));
 
 
     }
