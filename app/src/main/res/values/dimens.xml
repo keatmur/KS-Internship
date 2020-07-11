@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="ebitText_marginHorizontal">60dp</dimen>
-    <dimen name="ebitText_marginTop">150dp</dimen>
-    <dimen name="button_marginHorizontal">160dp</dimen>
-    <dimen name="button_marginTop">20dp</dimen>
-    <dimen name="defult_marginTop">20dp</dimen>
-    <dimen name="okCancel_marginStart">20dp</dimen>
-    <dimen name="result_text_marginStart">120dp</dimen>
-    <dimen name="result_text_marginTop">200dp</dimen>
+
+    <dimen name="title_text_size">20sp</dimen>
+    <dimen name="default_margin_big">22dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="default_middle_margin">8dp</dimen>
+    <dimen name="default_middle_margin_small">4dp</dimen>
+    <dimen name="default_marginTop">150dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
+
+
+
+
+
 </resources>

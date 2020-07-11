@@ -1,4 +1,4 @@
-package Base;
+package com.example.ks_internship.app.Base;
 
 import android.widget.Toolbar;
 
@@ -12,6 +12,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void initToolbar(String title){
         toolbar= findViewById(R.id.toolbar);
         toolbar.setTitle(title);
+
     }
 
     public void initToolbarWithNavigation(String title){

@@ -1,7 +1,7 @@
 package com.example.ks_internship.app.activity;
 
-import Base.BaseActivity;
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.ks_internship.app.Base.BaseActivity;
+
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.Activity;

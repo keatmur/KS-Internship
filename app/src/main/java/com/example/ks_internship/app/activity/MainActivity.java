@@ -1,13 +1,11 @@
 package com.example.ks_internship.app.activity;
 
-import Base.BaseActivity;
+import com.example.ks_internship.app.Base.BaseActivity;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import android.content.Intent;
-import android.os.BaseBundle;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
