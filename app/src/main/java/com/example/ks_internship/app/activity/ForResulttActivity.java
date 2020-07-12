@@ -1,6 +1,6 @@
 package com.example.ks_internship.app.activity;
 
-import com.example.ks_internship.app.Base.BaseActivity;
+import com.example.ks_internship.app.base.BaseActivity;
 
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.utils.Constants;
 
-public class ForResult extends BaseActivity {
+public class ForResulttActivity extends BaseActivity {
     private AppCompatButton ok;
     private AppCompatButton cancel;
     TextView text;
@@ -31,9 +31,9 @@ public class ForResult extends BaseActivity {
     }
 
     private void initViews() {
-        ok = findViewById(R.id.ok);
-        cancel = findViewById(R.id.cancel);
-        text = findViewById(R.id.result_text);
+        ok = findViewById(R.id.okBtn);
+        cancel = findViewById(R.id.cancelBtn);
+        text = findViewById(R.id.result_textView);
     }
 
     private void setResult() {

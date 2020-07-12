@@ -15,6 +15,7 @@
         <item name="backgroundTint">@color/colorAccent</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="AppToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@color/colorPrimary</item>
     </style>

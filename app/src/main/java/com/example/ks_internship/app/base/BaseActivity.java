@@ -1,4 +1,4 @@
-package com.example.ks_internship.app.Base;
+package com.example.ks_internship.app.base;
 
 import android.content.Intent;
 import android.provider.Settings;
@@ -21,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void sendEmail(String email, String subject, String message) {
 
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, message);
 
@@ -29,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openMenu(){
+    public void openMenu() {
         toolbar.inflateMenu(R.menu.menu_toolbar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -51,22 +51,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void initToolbar(String title){
-        toolbar= findViewById(R.id.toolbar);
+    public void initToolbar(String title) {
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(title);
         openMenu();
 
     }
 
-    public void initToolbarWithNavigation(String title){
-        toolbar =findViewById(R.id.toolbar);
+    public void initToolbarWithNavigation(String title) {
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(title);
         toolbar.setNavigationIcon(R.drawable.ic_back);
-        toolbar.setNavigationOnClickListener(v->{
+        toolbar.setNavigationOnClickListener(v -> {
             onBackPressed();
         });
         openMenu();
-
 
 
     }

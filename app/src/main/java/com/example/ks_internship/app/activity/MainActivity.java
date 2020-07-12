@@ -1,6 +1,7 @@
 package com.example.ks_internship.app.activity;
 
-import com.example.ks_internship.app.Base.BaseActivity;
+import com.example.ks_internship.app.base.BaseActivity;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -29,7 +30,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initViews() {
-        button_input = findViewById(R.id.button_input);
+        button_input = findViewById(R.id.inputBtn);
         input = findViewById(R.id.input);
     }
 
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void openActivityForResult() {
-        Intent intent = new Intent(MainActivity.this, ForResult.class);
+        Intent intent = new Intent(MainActivity.this, ForResulttActivity.class);
         intent.putExtra(Constants.EXTRA_MESSAGE, input.getText().toString());
         startActivityForResult(intent, Constants.RESULT_COD);
 

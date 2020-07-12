@@ -3,37 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/ok"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/result_text"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="@dimen/default_middle_margin"
-        android:text="@string/ok"
-        style="@style/AppButton"/>
+        android:layout_below="@+id/result_textView"
+        android:layout_centerInParent="true">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/result_text"
-        android:layout_marginStart="@dimen/default_middle_margin"
-        android:layout_alignTop="@id/ok"
-        android:layout_toEndOf="@id/ok"
-        android:text="@string/cancel"
-        style="@style/AppButton"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/okBtn"
+            style="@style/AppButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_middle_margin"
+            android:text="@string/ok" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancelBtn"
+            style="@style/AppButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/okBtn"
+            android:layout_toEndOf="@id/okBtn"
+            android:text="@string/cancel" />
+    </RelativeLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/result_text"
+        android:id="@+id/result_textView"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@+id/toolbar"
+        android:layout_centerInParent="true"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="@dimen/default_marginTop"
         android:textColor="@color/colorAccent"
-        android:textSize="@dimen/title_text_size"/>
-
+        android:textSize="@dimen/title_text_size" />
 
     <include
         android:id="@+id/toolbar"

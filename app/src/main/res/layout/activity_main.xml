@@ -7,29 +7,30 @@
     android:orientation="vertical"
     tools:context=".app.activity.MainActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/inputBtn"
+        style="@style/AppButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_middle_margin"
+        android:text="@string/ok"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf=" @+id/toolbar"
         android:layout_marginHorizontal="@dimen/default_margin_big"
-        android:layout_marginTop="@dimen/default_marginTop" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ok"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="@dimen/default_middle_margin"
-        app:layout_constraintTop_toBottomOf="@+id/input"
+        android:layout_marginTop="@dimen/default_marginTop"
         app:layout_constraintStart_toStartOf="parent"
-        style="@style/AppButton"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf=" @+id/toolbar" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
