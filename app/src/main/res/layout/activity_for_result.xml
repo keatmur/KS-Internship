@@ -30,7 +30,9 @@
         android:layout_height="50dp"
         android:layout_below="@+id/toolbar"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="@dimen/default_marginTop" />
+        android:layout_marginTop="@dimen/default_marginTop"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/title_text_size"/>
 
 
     <include

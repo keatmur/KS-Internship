@@ -5,4 +5,6 @@
     <string name="text">Text</string>
     <string name="main_activity_title">MainActivity</string>
     <string name="secoond_activity_title">SecondActivity</string>
+    <string name="email">email</string>
+    <string name="settings">settings</string>
 </resources>
