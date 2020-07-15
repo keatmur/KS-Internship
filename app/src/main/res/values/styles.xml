@@ -5,19 +5,26 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="titleTextColor">@android:color/white</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
     </style>
 
-    <style name="AppButton" parent="Widget.AppCompat.Button.Colored">
+    <style name="AppButton.Dark" parent="Widget.AppCompat.Button.Colored">
         <item name="backgroundTint">@color/colorAccent</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+    <style name="AppButton.Light" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="backgroundTint">@android:color/white</item>
 
+    </style>
+    
     <style name="AppToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@color/colorPrimary</item>
-    </style>
+
+
+</style>
 
 </resources>
