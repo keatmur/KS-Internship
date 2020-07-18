@@ -67,6 +67,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
         openMenu();
 
-
     }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+
 }

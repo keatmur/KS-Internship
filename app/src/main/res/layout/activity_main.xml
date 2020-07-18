@@ -6,18 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".app.activity.MainActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/test_tab"
+        style="@style/AppButton.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_tablayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <fragment
+        android:id="@+id/fragmet_choice"
         android:name="com.example.ks_internship.app.fragment.ChoiceFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/default_middle_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:id="@+id/fragmet_choice" />
+        app:layout_constraintTop_toBottomOf="@+id/test_tab" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

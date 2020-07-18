@@ -68,8 +68,8 @@ public class Song {
     public String toString() {
         return
                 "Name: " + name + "\n" +
-                "Singer: " + singer  + "\n" +
-                "Genre: " + genre  + "\n" +
-                "Duration: " + alibom ;
+                        "Singer: " + singer + "\n" +
+                        "Genre: " + genre + "\n" +
+                        "Duration: " + alibom;
     }
 }

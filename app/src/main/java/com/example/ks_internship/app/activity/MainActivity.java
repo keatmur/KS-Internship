@@ -13,17 +13,20 @@ import android.widget.Toast;
 
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.fragment.ChoiceFragment;
+import com.example.ks_internship.app.fragment.ThirdFragment;
 import com.example.ks_internship.app.fragment.ViewFragment;
 import com.example.ks_internship.app.model.Song;
 import com.example.ks_internship.app.utils.Constants;
 import com.example.ks_internship.app.utils.lisners.SongsSelectLisner;
+import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends BaseActivity {
 
-   private ChoiceFragment choiceFragment;
-   private ViewFragment viewFragment;
+    private ChoiceFragment choiceFragment;
+    private ViewFragment viewFragment;
+    private AppCompatButton test;
 
-   boolean isTwoPane ;
+    boolean isTwoPane;
 
 
     @Override
@@ -33,55 +36,66 @@ public class MainActivity extends BaseActivity {
 
         initToolbar(getString(R.string.app_name));
 
+        test = findViewById(R.id.test_tab);
+        test.setOnClickListener(view -> {
+
+            Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
+            startActivity(intent);
+
+        });
+
         isTwoPane = findViewById(R.id.fragmet_view) != null;
-        choiceFragment= (ChoiceFragment)getSupportFragmentManager().findFragmentById(R.id.fragmet_choice);
-        if(isTwoPane) {
-            viewFragment=(ViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmet_view);
+
+        choiceFragment = (ChoiceFragment) getSupportFragmentManager().findFragmentById(R.id.fragmet_choice);
+        if (isTwoPane) {
+            viewFragment = (ViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmet_view);
         }
+
         SongsSelectLisner songsSelectLisner = new SongsSelectLisner() {
             @Override
             public void onSongOne() {
-                Song song = new Song("Beautiful People","Ed Sheeran "," Pop music","No.6 Collaborations Project");
+                Song song = new Song("Beautiful People", "Ed Sheeran ", " Pop music", "No.6 Collaborations Project");
                 displaySelected(song.toString());
             }
 
             @Override
             public void onSongTwo() {
                 Song song = new Song("Level of Concern",
-                        "Twenty One Pilot", "Alternative music / indi","Level of Concern");
+                        "Twenty One Pilot", "Alternative music / indi", "Level of Concern");
                 displaySelected(song.toString());
             }
 
             @Override
             public void onSongThree() {
                 Song song = new Song("21 Guns",
-                        "Green Day","Alternative music / indi","21st Century Breakdown");
+                        "Green Day", "Alternative music / indi", "21st Century Breakdown");
                 displaySelected(song.toString());
             }
 
             @Override
             public void onSongFour() {
-                Song song = new Song("Viva La Vida","Coldplay","Pop music","Viva La Vida (Prospekt's March Edition)");
+                Song song = new Song("Viva La Vida", "Coldplay", "Pop music", "Viva La Vida (Prospekt's March Edition)");
                 displaySelected(song.toString());
             }
 
             @Override
             public void onSoungFive() {
-                Song song = new Song("Come As You Are ","Nirvana","Alternative music / indi","Nevermind");
+                Song song = new Song("Come As You Are ", "Nirvana", "Альтернативна музика/інді, Рок", "Nevermind");
                 displaySelected(song.toString());
             }
 
 
-
         };
+
         choiceFragment.setSongsSelectLisner(songsSelectLisner);
     }
-    private void displaySelected(String text){
+
+    private void displaySelected(String text) {
         if (isTwoPane) {
             viewFragment.displayResource(text);
         } else {
             Intent viewIntent = new Intent(MainActivity.this, ForResulttActivity.class);
-            viewIntent.putExtra(Constants.KEY_RES_ID,text);
+            viewIntent.putExtra(Constants.KEY_RES_ID, text);
             startActivity(viewIntent);
         }
 

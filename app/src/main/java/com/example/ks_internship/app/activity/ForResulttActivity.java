@@ -14,8 +14,8 @@ import com.example.ks_internship.app.fragment.ViewFragment;
 import com.example.ks_internship.app.utils.Constants;
 
 
-
 public class ForResulttActivity extends BaseActivity {
+
     private ViewFragment viewFragment;
 
     @Override
@@ -24,15 +24,12 @@ public class ForResulttActivity extends BaseActivity {
         setContentView(R.layout.activity_for_result);
         initToolbarWithNavigation(getString(R.string.app_name));
 
-       String text = getIntent().getStringExtra(Constants.KEY_RES_ID);
-        viewFragment=(ViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmet_view);
+        String text = getIntent().getStringExtra(Constants.KEY_RES_ID);
+        viewFragment = (ViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmet_view);
         viewFragment.displayResource(text);
 
 
-
-
     }
-
 
 
 }
