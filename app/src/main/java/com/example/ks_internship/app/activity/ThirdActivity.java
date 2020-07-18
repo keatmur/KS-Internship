@@ -1,6 +1,5 @@
 package com.example.ks_internship.app.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -45,7 +44,6 @@ public class ThirdActivity extends BaseActivity {
         tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-        getToolbar().setTitle(adapter.getPageTitle(0));
 
         setListeners();
     }
@@ -67,7 +65,7 @@ public class ThirdActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                getToolbar().setTitle(adapter.setTitle(position));
+
             }
 
             @Override

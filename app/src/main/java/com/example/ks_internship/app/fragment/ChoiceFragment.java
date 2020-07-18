@@ -38,11 +38,11 @@ public class ChoiceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_choice, container, false);
-        songOne = v.findViewById(R.id.song_1);
-        songTwo = v.findViewById(R.id.song_2);
-        songThree = v.findViewById(R.id.song_3);
-        songFour = v.findViewById(R.id.song_4);
-        songFive = v.findViewById(R.id.song_5);
+        songOne = v.findViewById(R.id.buttonSong_1);
+        songTwo = v.findViewById(R.id.buttonSong_2);
+        songThree = v.findViewById(R.id.buttonSong_3);
+        songFour = v.findViewById(R.id.buttonSong_4);
+        songFive = v.findViewById(R.id.buttonSong_5);
 
         songOne.setOnClickListener(view -> {
             if (songsSelectLisner != null) {

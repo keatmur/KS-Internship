@@ -6,15 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".app.activity.MainActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/test_tab"
-        style="@style/AppButton.Light"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lineLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/test_tablayout"
+        android:layout_marginTop="@dimen/default_middle_margin_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/BtnTestTab"
+            style="@style/AppButton.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/test_tablayout" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/BtnTestFrgManager"
+            style="@style/AppButton.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/test_manager" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <fragment
         android:id="@+id/fragmet_choice"
@@ -23,7 +37,7 @@
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/default_middle_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/test_tab" />
+        app:layout_constraintTop_toBottomOf="@+id/lineLayout" />
 
     <include
         android:id="@+id/toolbar"

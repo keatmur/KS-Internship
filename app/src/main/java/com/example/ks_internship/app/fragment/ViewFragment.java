@@ -33,7 +33,7 @@ public class ViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_view, container, false);
-        aboutSong = v.findViewById(R.id.aboutSong);
+        aboutSong = v.findViewById(R.id.textView_aboutSong);
         return v;
     }
 

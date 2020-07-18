@@ -2,29 +2,24 @@ package com.example.ks_internship.app.activity;
 
 import com.example.ks_internship.app.base.BaseActivity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatEditText;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.fragment.ChoiceFragment;
-import com.example.ks_internship.app.fragment.ThirdFragment;
 import com.example.ks_internship.app.fragment.ViewFragment;
 import com.example.ks_internship.app.model.Song;
 import com.example.ks_internship.app.utils.Constants;
 import com.example.ks_internship.app.utils.lisners.SongsSelectLisner;
-import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends BaseActivity {
 
     private ChoiceFragment choiceFragment;
     private ViewFragment viewFragment;
-    private AppCompatButton test;
+    private AppCompatButton testTabLayout;
+    private AppCompatButton testFragmentManager;
 
     boolean isTwoPane;
 
@@ -36,13 +31,8 @@ public class MainActivity extends BaseActivity {
 
         initToolbar(getString(R.string.app_name));
 
-        test = findViewById(R.id.test_tab);
-        test.setOnClickListener(view -> {
-
-            Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
-            startActivity(intent);
-
-        });
+        init();
+        lisner();
 
         isTwoPane = findViewById(R.id.fragmet_view) != null;
 
@@ -88,6 +78,28 @@ public class MainActivity extends BaseActivity {
         };
 
         choiceFragment.setSongsSelectLisner(songsSelectLisner);
+    }
+
+    public void init() {
+        testTabLayout = findViewById(R.id.BtnTestTab);
+        testFragmentManager = findViewById(R.id.BtnTestFrgManager);
+
+    }
+
+    public void lisner() {
+        testTabLayout.setOnClickListener(view -> {
+
+            Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
+            startActivity(intent);
+
+        });
+
+        testFragmentManager.setOnClickListener(view -> {
+
+            Intent intent = new Intent(MainActivity.this, FourthActivity.class);
+            startActivity(intent);
+
+        });
     }
 
     private void displaySelected(String text) {
