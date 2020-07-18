@@ -12,58 +12,79 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.example.ks_internship.R;
+import com.example.ks_internship.app.fragment.ChoiceFragment;
+import com.example.ks_internship.app.fragment.ViewFragment;
+import com.example.ks_internship.app.model.Song;
 import com.example.ks_internship.app.utils.Constants;
+import com.example.ks_internship.app.utils.lisners.SongsSelectLisner;
 
 public class MainActivity extends BaseActivity {
 
-    private AppCompatButton button_input;
-    private AppCompatEditText input;
+   private ChoiceFragment choiceFragment;
+   private ViewFragment viewFragment;
+
+   boolean isTwoPane ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initViews();
-        clicListeners();
-        initToolbar(getString(R.string.main_activity_title));
-    }
+        initToolbar(getString(R.string.app_name));
 
-    private void initViews() {
-        button_input = findViewById(R.id.inputBtn);
-        input = findViewById(R.id.input);
-    }
-
-    private void massegToast(String masseg) {
-        Toast.makeText(MainActivity.this, masseg, Toast.LENGTH_LONG).show();
-    }
-
-    private void openActivityForResult() {
-        Intent intent = new Intent(MainActivity.this, ForResulttActivity.class);
-        intent.putExtra(Constants.EXTRA_MESSAGE, input.getText().toString());
-        startActivityForResult(intent, Constants.RESULT_COD);
-
-    }
-
-    private void clicListeners() {
-        button_input.setOnClickListener(v -> {
-            if (TextUtils.isEmpty(input.getText())) {
-                massegToast("ERROR");
-            } else {
-                openActivityForResult();
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.RESULT_COD) {
-            if (resultCode == RESULT_OK) {
-                massegToast("Success");
-            } else {
-                input.setText("");
-            }
+        isTwoPane = findViewById(R.id.fragmet_view) != null;
+        choiceFragment= (ChoiceFragment)getSupportFragmentManager().findFragmentById(R.id.fragmet_choice);
+        if(isTwoPane) {
+            viewFragment=(ViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmet_view);
         }
+        SongsSelectLisner songsSelectLisner = new SongsSelectLisner() {
+            @Override
+            public void onSongOne() {
+                Song song = new Song("Beautiful People","Ed Sheeran "," Pop music","No.6 Collaborations Project");
+                displaySelected(song.toString());
+            }
+
+            @Override
+            public void onSongTwo() {
+                Song song = new Song("Level of Concern",
+                        "Twenty One Pilot", "Alternative music / indi","Level of Concern");
+                displaySelected(song.toString());
+            }
+
+            @Override
+            public void onSongThree() {
+                Song song = new Song("21 Guns",
+                        "Green Day","Alternative music / indi","21st Century Breakdown");
+                displaySelected(song.toString());
+            }
+
+            @Override
+            public void onSongFour() {
+                Song song = new Song("Viva La Vida","Coldplay","Pop music","Viva La Vida (Prospekt's March Edition)");
+                displaySelected(song.toString());
+            }
+
+            @Override
+            public void onSoungFive() {
+                Song song = new Song("Come As You Are ","Nirvana","Alternative music / indi","Nevermind");
+                displaySelected(song.toString());
+            }
+
+
+
+        };
+        choiceFragment.setSongsSelectLisner(songsSelectLisner);
     }
+    private void displaySelected(String text){
+        if (isTwoPane) {
+            viewFragment.displayResource(text);
+        } else {
+            Intent viewIntent = new Intent(MainActivity.this, ForResulttActivity.class);
+            viewIntent.putExtra(Constants.KEY_RES_ID,text);
+            startActivity(viewIntent);
+        }
+
+    }
+
 }
