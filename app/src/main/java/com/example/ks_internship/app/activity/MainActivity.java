@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity {
         if (isTwoPane) {
             viewFragment.displayResource(text);
         } else {
-            Intent viewIntent = new Intent(MainActivity.this, ForResulttActivity.class);
+            Intent viewIntent = new Intent(MainActivity.this, SecondActivity.class);
             viewIntent.putExtra(Constants.KEY_RES_ID, text);
             startActivity(viewIntent);
         }

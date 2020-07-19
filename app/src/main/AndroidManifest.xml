@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".app.activity.FourthActivity"></activity>
         <activity android:name=".app.activity.ThirdActivity" />
-        <activity android:name=".app.activity.ForResulttActivity" />
+        <activity android:name=".app.activity.SecondActivity" />
         <activity android:name=".app.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

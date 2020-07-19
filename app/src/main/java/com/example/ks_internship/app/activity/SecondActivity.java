@@ -14,7 +14,7 @@ import com.example.ks_internship.app.fragment.ViewFragment;
 import com.example.ks_internship.app.utils.Constants;
 
 
-public class ForResulttActivity extends BaseActivity {
+public class SecondActivity extends BaseActivity {
 
     private ViewFragment viewFragment;
 
