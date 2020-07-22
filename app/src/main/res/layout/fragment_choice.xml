@@ -6,47 +6,11 @@
     tools:context=".app.fragment.ChoiceFragment">
 
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginHorizontal="@dimen/default_margin_big"
-        android:orientation="vertical">
+        android:layout_height="match_parent"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSong_1"
-            style="@style/AppButton.Dark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ed_sheeran_beautiful_people" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSong_2"
-            style="@style/AppButton.Dark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/twenty_one_pilots_level_of_concern" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSong_3"
-            style="@style/AppButton.Dark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/green_day_21_guns" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSong_4"
-            style="@style/AppButton.Dark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/coldplay_viva_la_vida" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonSong_5"
-            style="@style/AppButton.Dark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/arctic_monkeys_do_i_wanna_know" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

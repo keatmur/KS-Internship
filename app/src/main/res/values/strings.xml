@@ -7,18 +7,6 @@
     <string name="secoond_activity_title">SecondActivity</string>
     <string name="email">email</string>
     <string name="settings">settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="ed_sheeran_beautiful_people">Ed Sheeran - Beautiful People</string>
-    <string name="twenty_one_pilots_level_of_concern">twenty one pilots - Level of Concern</string>
-    <string name="green_day_21_guns">Green Day - 21 Guns</string>
-    <string name="coldplay_viva_la_vida">Coldplay-Viva La Vida</string>
-    <string name="arctic_monkeys_do_i_wanna_know">Arctic Monkeys-Do I Wanna Know?</string>
-    <string name="test_tablayout">TabLayout</string>
-    <string name="test_manager">Fragment Manager</string>
-    <string name="add">Add Fragmen1</string>
-    <string name="replace">Replace to Fragment2</string>
-    <string name="show">Show Fragment2 </string>
-    <string name="remove">remove Fragment1</string>
-    <string name="hide">Hide Fragment2</string>
+
+
 </resources>

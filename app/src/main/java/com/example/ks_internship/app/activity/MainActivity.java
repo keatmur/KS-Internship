@@ -31,8 +31,6 @@ public class MainActivity extends BaseActivity {
 
         initToolbar(getString(R.string.app_name));
 
-        init();
-        lisner();
 
         isTwoPane = findViewById(R.id.fragmet_view) != null;
 
@@ -80,27 +78,6 @@ public class MainActivity extends BaseActivity {
         choiceFragment.setSongsSelectLisner(songsSelectLisner);
     }
 
-    public void init() {
-        testTabLayout = findViewById(R.id.BtnTestTab);
-        testFragmentManager = findViewById(R.id.BtnTestFrgManager);
-
-    }
-
-    public void lisner() {
-        testTabLayout.setOnClickListener(view -> {
-
-            Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
-            startActivity(intent);
-
-        });
-
-        testFragmentManager.setOnClickListener(view -> {
-
-            Intent intent = new Intent(MainActivity.this, FourthActivity.class);
-            startActivity(intent);
-
-        });
-    }
 
     private void displaySelected(String text) {
         if (isTwoPane) {

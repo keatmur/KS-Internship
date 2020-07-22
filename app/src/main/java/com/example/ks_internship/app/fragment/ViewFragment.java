@@ -11,11 +11,6 @@ import android.view.ViewGroup;
 
 import com.example.ks_internship.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ViewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ViewFragment extends Fragment {
     AppCompatTextView aboutSong;
 
