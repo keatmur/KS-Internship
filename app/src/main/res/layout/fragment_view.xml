@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".app.fragment.ViewFragment">
 
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView_aboutSong"
         android:layout_width="wrap_content"

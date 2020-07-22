@@ -8,5 +8,6 @@
     <dimen name="default_middle_margin_small">4dp</dimen>
     <dimen name="default_marginTop">150dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="defult_width_landLayout">300dp</dimen>
 
 </resources>

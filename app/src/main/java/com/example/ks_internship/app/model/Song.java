@@ -1,8 +1,12 @@
 package com.example.ks_internship.app.model;
 
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
-public class Song {
+public class Song  implements Parcelable {
     private String name;
     private String singer;
     private String genre;
@@ -14,6 +18,25 @@ public class Song {
         this.genre = genre;
         this.alibom = alibom;
     }
+
+    protected Song(Parcel in) {
+        name = in.readString();
+        singer = in.readString();
+        genre = in.readString();
+        alibom = in.readString();
+    }
+
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -64,6 +87,7 @@ public class Song {
         return Objects.hash(name, singer, genre, alibom);
     }
 
+
     @Override
     public String toString() {
         return
@@ -71,5 +95,18 @@ public class Song {
                         "Singer: " + singer + "\n" +
                         "Genre: " + genre + "\n" +
                         "Duration: " + alibom;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(singer);
+        parcel.writeString(genre);
+        parcel.writeString(alibom);
     }
 }

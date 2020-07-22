@@ -2,24 +2,24 @@ package com.example.ks_internship.app.activity;
 
 import com.example.ks_internship.app.base.BaseActivity;
 
-import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+
 
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.fragment.ChoiceFragment;
 import com.example.ks_internship.app.fragment.ViewFragment;
-import com.example.ks_internship.app.model.Song;
 import com.example.ks_internship.app.utils.Constants;
-import com.example.ks_internship.app.utils.lisners.SongsSelectLisner;
+import com.example.ks_internship.app.utils.lisners.OnSongListener;
+
 
 public class MainActivity extends BaseActivity {
 
     private ChoiceFragment choiceFragment;
     private ViewFragment viewFragment;
-    private AppCompatButton testTabLayout;
-    private AppCompatButton testFragmentManager;
+
 
     boolean isTwoPane;
 
@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initToolbar(getString(R.string.app_name));
+        initToolbar(getString(R.string.main_activity_title));
 
 
         isTwoPane = findViewById(R.id.fragmet_view) != null;
@@ -39,43 +39,15 @@ public class MainActivity extends BaseActivity {
             viewFragment = (ViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmet_view);
         }
 
-        SongsSelectLisner songsSelectLisner = new SongsSelectLisner() {
+        OnSongListener onSongListener = new OnSongListener() {
             @Override
-            public void onSongOne() {
-                Song song = new Song("Beautiful People", "Ed Sheeran ", " Pop music", "No.6 Collaborations Project");
-                displaySelected(song.toString());
+            public void setSong(String string) {
+                displaySelected(string);
             }
-
-            @Override
-            public void onSongTwo() {
-                Song song = new Song("Level of Concern",
-                        "Twenty One Pilot", "Alternative music / indi", "Level of Concern");
-                displaySelected(song.toString());
-            }
-
-            @Override
-            public void onSongThree() {
-                Song song = new Song("21 Guns",
-                        "Green Day", "Alternative music / indi", "21st Century Breakdown");
-                displaySelected(song.toString());
-            }
-
-            @Override
-            public void onSongFour() {
-                Song song = new Song("Viva La Vida", "Coldplay", "Pop music", "Viva La Vida (Prospekt's March Edition)");
-                displaySelected(song.toString());
-            }
-
-            @Override
-            public void onSoungFive() {
-                Song song = new Song("Come As You Are ", "Nirvana", "Альтернативна музика/інді, Рок", "Nevermind");
-                displaySelected(song.toString());
-            }
-
-
         };
 
-        choiceFragment.setSongsSelectLisner(songsSelectLisner);
+
+        choiceFragment.setOnSongListener(onSongListener);
     }
 
 

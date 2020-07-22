@@ -17,7 +17,7 @@ public class SecondActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        initToolbarWithNavigation(getString(R.string.app_name));
+        initToolbarWithNavigation(getString(R.string.secoond_activity_title));
 
         String text = getIntent().getStringExtra(Constants.KEY_RES_ID);
         viewFragment = (ViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmet_view);

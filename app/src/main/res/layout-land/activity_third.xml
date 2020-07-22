@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".app.activity.ThirdActivity">
-
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/inputBtn"
@@ -20,11 +17,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/singerSong_input"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/defult_width_landLayout"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_margin_big"
         android:layout_marginTop="@dimen/default_margin_big"
         android:hint="@string/singer"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameSong_input">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -35,12 +33,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/genre_input"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/defult_width_landLayout"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_margin_big"
         android:layout_marginTop="@dimen/default_margin_big"
         android:hint="@string/genre"
-        app:layout_constraintTop_toBottomOf="@id/singerSong_input">
+        app:layout_constraintStart_toEndOf="@id/nameSong_input"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -50,11 +49,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/alibom_input"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/defult_width_landLayout"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_margin_big"
         android:layout_marginTop="@dimen/default_margin_big"
+        android:imeOptions="actionNext"
         android:hint="@string/alibom"
+        app:layout_constraintStart_toEndOf="@+id/singerSong_input"
         app:layout_constraintTop_toBottomOf="@id/genre_input">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -65,11 +66,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameSong_input"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/defult_width_landLayout"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_margin_big"
         android:layout_marginTop="@dimen/default_margin_big"
         android:hint="@string/title"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -81,6 +83,5 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_layout" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
