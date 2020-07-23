@@ -103,6 +103,8 @@ public class ChoiceFragment extends Fragment {
                 if (data.getExtras() != null) {
                     songArrayList.add(data.getExtras().getParcelable(Constants.EXTRA_MESSAGE));
                     songListAdapter.notifyDataSetChanged();
+                    recyclerView.smoothScrollToPosition(recyclerView.getBottom());
+
 
                 }
             }
