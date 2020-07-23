@@ -4,5 +4,7 @@ import android.view.View;
 
 public interface OnSongRecycleClickListener {
     public void onItemClick(View v, int position);
+    public void onItemLongClick(View v, int position);
+
 }
 

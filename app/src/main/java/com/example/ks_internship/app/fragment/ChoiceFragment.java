@@ -1,9 +1,11 @@
 package com.example.ks_internship.app.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,8 +35,32 @@ public class ChoiceFragment extends Fragment {
     private SongListAdapter songListAdapter;
     private FloatingActionButton addFab;
 
-    private OnSongRecycleClickListener onSongRecycleClickListener = (view, position) -> {
-        onSongListener.setSong(songListAdapter.getItems().get(position).toString());
+    private OnSongRecycleClickListener onSongRecycleClickListener = new OnSongRecycleClickListener() {
+        @Override
+        public void onItemClick(View v, int position) {
+            onSongListener.setSong(songListAdapter.getItems().get(position).toString());
+        }
+
+        @Override
+        public void onItemLongClick(View v, int position) {
+            new AlertDialog.Builder(v.getContext())
+                    .setMessage("Do you really want to delete?")
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                          songArrayList.remove(position);
+                          songListAdapter.notifyDataSetChanged();
+
+
+                        }
+                    })
+                    .setNegativeButton("Отмена", null)
+                    .create().show();
+
+
+        }
+
+
     };
 
 

@@ -43,6 +43,14 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
             }
         });
 
+        view.setOnLongClickListener(view1 -> {
+            if (listener != null) {
+                listener.onItemLongClick(view, viewHolder.getAdapterPosition());
+            }
+            return true;
+        });
+
+
         return viewHolder;
     }
 
