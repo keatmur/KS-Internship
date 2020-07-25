@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,20 +43,40 @@ public class ChoiceFragment extends Fragment {
         }
 
         @Override
-        public void onItemLongClick(View v, int position) {
+        public void onItemDeleteClick(View v, int position) {
             new AlertDialog.Builder(v.getContext())
-                    .setMessage("Do you really want to delete?")
+                    .setMessage(getString(R.string.want_delete))
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                          songArrayList.remove(position);
-                          songListAdapter.notifyDataSetChanged();
+                            songArrayList.remove(position);
+                            songListAdapter.notifyItemRemoved(position);
 
 
                         }
                     })
-                    .setNegativeButton("Отмена", null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .create().show();
+
+
+        }
+
+        @Override
+        public void onItemShareClick(View v, int position) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, songListAdapter.getItems().get(position).toString());
+            startActivity(Intent.createChooser(intent, null));
+        }
+
+        @Override
+        public void onItemEbitClick(View v, int position) {
+
+            Song song = songListAdapter.getItems().get(position);
+            Intent intent = new Intent(v.getContext(), ThirdActivity.class);
+            intent.putExtra(Constants.EXTRA_EBIT, song);
+            intent.putExtra(Constants.EXTRA_EBIT_POSITION, position);
+            startActivityForResult(intent, Constants.RESULT_COD_EBIT);
 
 
         }
@@ -105,6 +126,15 @@ public class ChoiceFragment extends Fragment {
                     songListAdapter.notifyDataSetChanged();
                     recyclerView.smoothScrollToPosition(recyclerView.getBottom());
 
+                }
+            }
+        }
+        if (requestCode == Constants.RESULT_COD_EBIT) {
+            if (resultCode == RESULT_OK) {
+                if (data.getExtras() != null) {
+                    songArrayList.set(data.getExtras().getInt(Constants.EXTRA_EBIT_POSITION), data.getExtras().getParcelable(Constants.EXTRA_MESSAGE));
+                    songListAdapter.notifyDataSetChanged();
+                    recyclerView.smoothScrollToPosition(recyclerView.getBottom());
 
                 }
             }

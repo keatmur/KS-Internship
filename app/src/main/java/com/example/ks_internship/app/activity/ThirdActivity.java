@@ -22,6 +22,7 @@ public class ThirdActivity extends BaseActivity {
     private TextInputLayout alibom;
     private AppCompatButton inputBtn;
     private Song song;
+    private int position =-1;
 
 
     @Override
@@ -32,6 +33,20 @@ public class ThirdActivity extends BaseActivity {
         initToolbarWithNavigation(getString(R.string.third_activity_title));
         initInputLayout();
         setListneret();
+
+        if (getIntent().getExtras() != null) {
+            song =getIntent().getExtras().getParcelable(Constants.EXTRA_EBIT);
+            if (song != null) {
+                name.getEditText().setText(song.getName());
+                singer.getEditText().setText(song.getSinger());
+                gener.getEditText().setText(song.getGenre());
+                alibom.getEditText().setText(song.getAlibom());
+
+            }
+            position = getIntent().getExtras().getInt(Constants.EXTRA_EBIT_POSITION);
+        }
+
+
 
 
     }
@@ -47,44 +62,51 @@ public class ThirdActivity extends BaseActivity {
 
     public void setListneret() {
         inputBtn.setOnClickListener(v -> {
-            String nameSong = Objects.requireNonNull(name.getEditText()).getText().toString();
-            String singerSong = Objects.requireNonNull(singer.getEditText()).getText().toString();
-            String generSong = gener.getEditText().getText().toString();
-            String alibomSong = alibom.getEditText().getText().toString();
 
-            if (nameSong.length() == 0) {
-                name.setError("Fill in the Blank Field");
-            } else {
-                name.setError(null);
-            }
-            if (singerSong.length() == 0) {
-                singer.setError("Fill in the Blank Field");
-            } else {
-                singer.setError(null);
-            }
-            if (generSong.length() == 0) {
-                gener.setError("Fill in the Blank Field");
-            } else {
-                gener.setError(null);
-            }
-            if (alibomSong.length() == 0) {
-                alibom.setError("Fill in the Blank Field");
-            } else {
-                alibom.setError(null);
-            }
-            if (nameSong.length() != 0 && singerSong.length() != 0 && generSong.length() != 0 && alibomSong.length() != 0) {
-
-                song = new Song(nameSong, singerSong, generSong, alibomSong);
+            if (getEbitTextNotNull()) {
                 Intent intent = new Intent();
                 intent.putExtra(Constants.EXTRA_MESSAGE, song);
+                if(position>-1) intent.putExtra(Constants.EXTRA_EBIT_POSITION,position);
                 setResult(RESULT_OK, intent);
 
                 setResult(Activity.RESULT_OK, intent);
                 finish();
-
             }
-
         });
+    }
+
+    public  boolean getEbitTextNotNull(){
+        String nameSong = Objects.requireNonNull(name.getEditText()).getText().toString();
+        String singerSong = Objects.requireNonNull(singer.getEditText()).getText().toString();
+        String generSong = gener.getEditText().getText().toString();
+        String alibomSong = alibom.getEditText().getText().toString();
+
+        if (nameSong.length() == 0) {
+            name.setError("Fill in the Blank Field");
+        } else {
+            name.setError(null);
+        }
+        if (singerSong.length() == 0) {
+            singer.setError("Fill in the Blank Field");
+        } else {
+            singer.setError(null);
+        }
+        if (generSong.length() == 0) {
+            gener.setError("Fill in the Blank Field");
+        } else {
+            gener.setError(null);
+        }
+        if (alibomSong.length() == 0) {
+            alibom.setError("Fill in the Blank Field");
+        } else {
+            alibom.setError(null);
+        }
+        if (nameSong.length() != 0 && singerSong.length() != 0 && generSong.length() != 0 && alibomSong.length() != 0) {
+
+            song = new Song(nameSong, singerSong, generSong, alibomSong);
+            return true;
+        }
+        return false;
     }
 
 

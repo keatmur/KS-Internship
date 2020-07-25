@@ -11,7 +11,8 @@
     <string name="title">Title</string>
     <string name="singer">Singer</string>
     <string name="genre">Genre</string>
-    <string name="alibom">Alibom</string>
+    <string name="alibom">Duration</string>
+    <string name="want_delete">"Do you really want to delete?"</string>
 
 
 </resources>
