@@ -32,8 +32,9 @@ public class ThirdActivity extends BaseActivity {
 
         initToolbarWithNavigation(getString(R.string.third_activity_title));
         initInputLayout();
-        setListneret();
         initEbitText();
+        setListneret();
+
 
 
 

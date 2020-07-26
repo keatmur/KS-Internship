@@ -46,8 +46,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
 
-        holder.name_song.setText(items.get(position).getName());
-        holder.singer_song.setText(items.get(position).getSinger());
+
 
         viewBinderHelper.bind(holder.swipeRevealLayout, String.valueOf(position));
 
@@ -74,6 +73,8 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
             }
         });
 
+        holder.name_song.setText(items.get(position).getName());
+        holder.singer_song.setText(items.get(position).getSinger());
 
     }
 
