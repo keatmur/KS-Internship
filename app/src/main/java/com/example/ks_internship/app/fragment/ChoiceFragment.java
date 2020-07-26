@@ -133,8 +133,8 @@ public class ChoiceFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 if (data.getExtras() != null) {
                     songArrayList.set(data.getExtras().getInt(Constants.EXTRA_EBIT_POSITION), data.getExtras().getParcelable(Constants.EXTRA_MESSAGE));
-                    songListAdapter.notifyDataSetChanged();
-                    recyclerView.smoothScrollToPosition(recyclerView.getBottom());
+                    songListAdapter.notifyItemChanged(data.getExtras().getInt(Constants.EXTRA_EBIT_POSITION));
+
 
                 }
             }

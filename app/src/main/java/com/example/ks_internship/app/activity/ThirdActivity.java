@@ -33,23 +33,29 @@ public class ThirdActivity extends BaseActivity {
         initToolbarWithNavigation(getString(R.string.third_activity_title));
         initInputLayout();
         setListneret();
+        initEbitText();
 
-        if (getIntent().getExtras() != null) {
-            song =getIntent().getExtras().getParcelable(Constants.EXTRA_EBIT);
-            if (song != null) {
-                name.getEditText().setText(song.getName());
-                singer.getEditText().setText(song.getSinger());
-                gener.getEditText().setText(song.getGenre());
-                alibom.getEditText().setText(song.getAlibom());
 
-            }
-            position = getIntent().getExtras().getInt(Constants.EXTRA_EBIT_POSITION);
-        }
 
 
 
 
     }
+    public void initEbitText(){
+        if (getIntent().getExtras() != null) {
+            song =getIntent().getExtras().getParcelable(Constants.EXTRA_EBIT);
+
+            name.getEditText().setText(song.getName());
+            singer.getEditText().setText(song.getSinger());
+            gener.getEditText().setText(song.getGenre());
+            alibom.getEditText().setText(song.getAlibom());
+
+            position = getIntent().getExtras().getInt(Constants.EXTRA_EBIT_POSITION);
+        }
+
+
+    }
+
 
     public void initInputLayout() {
 
@@ -76,10 +82,10 @@ public class ThirdActivity extends BaseActivity {
     }
 
     public  boolean getEbitTextNotNull(){
-        String nameSong = Objects.requireNonNull(name.getEditText()).getText().toString();
-        String singerSong = Objects.requireNonNull(singer.getEditText()).getText().toString();
-        String generSong = gener.getEditText().getText().toString();
-        String alibomSong = alibom.getEditText().getText().toString();
+        String nameSong = Objects.requireNonNull(name.getEditText()).getText().toString().trim() ;
+        String singerSong = Objects.requireNonNull(singer.getEditText()).getText().toString().trim() ;
+        String generSong = gener.getEditText().getText().toString().trim() ;
+        String alibomSong = alibom.getEditText().getText().toString().trim() ;
 
         if (nameSong.length() == 0) {
             name.setError("Fill in the Blank Field");
