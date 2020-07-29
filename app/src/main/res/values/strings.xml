@@ -5,7 +5,7 @@
     <string name="text">Text</string>
     <string name="main_activity_title">List of songs</string>
     <string name="secoond_activity_title">About songs</string>
-    <string name="third_activity_title"> Add a new song  </string>
+    <string name="third_activity_title"> Add a new deezerTrack  </string>
     <string name="email">email</string>
     <string name="settings">settings</string>
     <string name="title">Title</string>
@@ -13,6 +13,7 @@
     <string name="genre">Genre</string>
     <string name="alibom">Duration</string>
     <string name="want_delete">"Do you really want to delete?"</string>
+    <string name="go">Go</string>
 
 
 </resources>

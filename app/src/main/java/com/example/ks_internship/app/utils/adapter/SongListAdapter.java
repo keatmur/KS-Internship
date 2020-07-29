@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.ks_internship.R;
-import com.example.ks_internship.app.model.Song;
+import com.example.ks_internship.app.model.DeezerTrack;
 
 import com.example.ks_internship.app.utils.lisners.OnSongRecycleClickListener;
 
@@ -23,12 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHolder> {
 
-    private ArrayList<Song> items;
+    private ArrayList<DeezerTrack> items;
     private Context ctx;
     private OnSongRecycleClickListener listener;
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
-    public SongListAdapter(ArrayList<Song> items, Context ctx) {
+    public SongListAdapter(ArrayList<DeezerTrack> items, Context ctx) {
         this.items = items;
         this.ctx = ctx;
     }
@@ -73,8 +73,8 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
             }
         });
 
-        holder.name_song.setText(items.get(position).getName());
-        holder.singer_song.setText(items.get(position).getSinger());
+        holder.name_song.setText(items.get(position).getTitle());
+        holder.singer_song.setText(items.get(position).getArtist().getName());
 
     }
 
@@ -91,11 +91,11 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
         return items.size();
     }
 
-    public ArrayList<Song> getItems() {
+    public ArrayList<DeezerTrack> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<Song> items) {
+    public void setItems(ArrayList<DeezerTrack> items) {
         this.items = items;
     }
 

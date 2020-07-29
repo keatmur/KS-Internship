@@ -7,23 +7,74 @@
     tools:context=".app.fragment.ChoiceFragment">
 
 
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_titleTrack_input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLines="1"
+            android:inputType="text"
+            android:imeOptions="actionGo"
+            android:layout_weight="3"
+            android:hint="Repo name to find..." />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/go"
+            style="@style/AppButton.Dark"/>
+
+    </LinearLayout>
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_search" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginEnd="@dimen/default_middle_margin_small"
         android:layout_marginBottom="60dp"
         android:background="@color/colorAccent"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="@+id/my_recycler_view"
         app:layout_constraintEnd_toEndOf="@+id/my_recycler_view" />
+
+    <LinearLayout
+        android:id="@+id/loader_block"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/pb_progress"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.base.BaseActivity;
-import com.example.ks_internship.app.model.Song;
+import com.example.ks_internship.app.model.DeezerTrack;
 import com.example.ks_internship.app.utils.Constants;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -21,7 +21,7 @@ public class ThirdActivity extends BaseActivity {
     private TextInputLayout gener;
     private TextInputLayout alibom;
     private AppCompatButton inputBtn;
-    private Song song;
+    private DeezerTrack deezerTrack;
     private int position =-1;
 
 
@@ -44,12 +44,8 @@ public class ThirdActivity extends BaseActivity {
     }
     public void initEbitText(){
         if (getIntent().getExtras() != null) {
-            song =getIntent().getExtras().getParcelable(Constants.EXTRA_EBIT);
+            deezerTrack =getIntent().getExtras().getParcelable(Constants.EXTRA_EBIT);
 
-            name.getEditText().setText(song.getName());
-            singer.getEditText().setText(song.getSinger());
-            gener.getEditText().setText(song.getGenre());
-            alibom.getEditText().setText(song.getAlibom());
 
             position = getIntent().getExtras().getInt(Constants.EXTRA_EBIT_POSITION);
         }
@@ -72,7 +68,7 @@ public class ThirdActivity extends BaseActivity {
 
             if (getEbitTextNotNull()) {
                 Intent intent = new Intent();
-                intent.putExtra(Constants.EXTRA_MESSAGE, song);
+                //intent.putExtra(Constants.EXTRA_MESSAGE, deezerTrack);
                 if(position>-1) intent.putExtra(Constants.EXTRA_EBIT_POSITION,position);
                 setResult(RESULT_OK, intent);
 
@@ -110,7 +106,7 @@ public class ThirdActivity extends BaseActivity {
         }
         if (nameSong.length() != 0 && singerSong.length() != 0 && generSong.length() != 0 && alibomSong.length() != 0) {
 
-            song = new Song(nameSong, singerSong, generSong, alibomSong);
+
             return true;
         }
         return false;
