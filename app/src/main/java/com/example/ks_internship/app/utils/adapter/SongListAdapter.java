@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.bumptech.glide.Glide;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.ks_internship.R;
@@ -75,6 +76,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
 
         holder.name_song.setText(items.get(position).getTitle());
         holder.singer_song.setText(items.get(position).getArtist().getName());
+        Glide.with(holder.ic_album).load(items.get(position).getAlbum().getCoverSmall()).placeholder(R.drawable.ic_music_note).into(holder.ic_album);
 
     }
 
@@ -109,6 +111,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
         AppCompatImageView delete;
         AppCompatImageView share;
         AppCompatImageView ebit;
+        AppCompatImageView ic_album;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -122,6 +125,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
             delete = itemView.findViewById(R.id.deleteBtn);
             share = itemView.findViewById(R.id.shareBtn);
             ebit = itemView.findViewById(R.id.ebitBtn);
+            ic_album =itemView.findViewById(R.id.ic_song);
 
 
         }
