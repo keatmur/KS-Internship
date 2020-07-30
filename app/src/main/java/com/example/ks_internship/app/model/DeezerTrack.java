@@ -6,7 +6,7 @@ import android.os.Parcelable;
 
 import java.util.Objects;
 
-public class DeezerTrack {
+public class DeezerTrack implements Parcelable {
     private String title;
     private String titleShord;
     private String link;
@@ -21,6 +21,41 @@ public class DeezerTrack {
         this.album = album;
 
     }
+
+
+    protected DeezerTrack(Parcel in) {
+        title = in.readString();
+        titleShord = in.readString();
+        link = in.readString();
+        artist = in.readParcelable(DeezerArtist.class.getClassLoader());
+        album = in.readParcelable(DeezerAlbum.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(titleShord);
+        dest.writeString(link);
+        dest.writeParcelable(artist, flags);
+        dest.writeParcelable(album, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<DeezerTrack> CREATOR = new Creator<DeezerTrack>() {
+        @Override
+        public DeezerTrack createFromParcel(Parcel in) {
+            return new DeezerTrack(in);
+        }
+
+        @Override
+        public DeezerTrack[] newArray(int size) {
+            return new DeezerTrack[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -81,8 +116,10 @@ public class DeezerTrack {
 
     @Override
     public String toString() {
-        return "Title:" + title +
-                "Artist:" + artist.getName() +
-                "Album:" + album.getTitle();
+        return "Title:" + title + "\n" +
+                "Artist:" + artist.getName() + "\n" +
+                "Album:" + album.getTitle() + "\n" +
+                "Link in Deeer" + link;
     }
+
 }

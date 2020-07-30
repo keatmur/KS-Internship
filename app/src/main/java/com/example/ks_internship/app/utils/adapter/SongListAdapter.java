@@ -47,8 +47,6 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
 
-
-
         viewBinderHelper.bind(holder.swipeRevealLayout, String.valueOf(position));
 
         holder.frontLayout.setOnClickListener(v -> {
@@ -74,7 +72,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
             }
         });
 
-        holder.name_song.setText(items.get(position).getTitle());
+        holder.name_song.setText(items.get(position).getTitleShord());
         holder.singer_song.setText(items.get(position).getArtist().getName());
         Glide.with(holder.ic_album).load(items.get(position).getAlbum().getCoverSmall()).placeholder(R.drawable.ic_music_note).into(holder.ic_album);
 
@@ -125,7 +123,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
             delete = itemView.findViewById(R.id.deleteBtn);
             share = itemView.findViewById(R.id.shareBtn);
             ebit = itemView.findViewById(R.id.ebitBtn);
-            ic_album =itemView.findViewById(R.id.ic_song);
+            ic_album = itemView.findViewById(R.id.ic_song);
 
 
         }

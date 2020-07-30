@@ -14,6 +14,7 @@
     <string name="alibom">Duration</string>
     <string name="want_delete">"Do you really want to delete?"</string>
     <string name="go">Go</string>
+    <string name="go_deezer"> Listen Deezer</string>
 
 
 </resources>

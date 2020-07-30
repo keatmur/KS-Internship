@@ -6,14 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".app.fragment.ViewFragment">
 
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView_aboutSong"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_go_dezeer"
+        style="@style/AppButton.Dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/tv_albumTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/default_middle_margin"
+        android:text="@string/go_deezer" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_albumTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_titleArtist"
+        android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="@dimen/default_margin_big"
+        android:layout_marginTop="@dimen/default_middle_margin"
         android:textSize="@dimen/title_text_size" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_titleArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewCover"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="@dimen/default_margin_big"
+        android:layout_marginTop="@dimen/default_middle_margin"
+        android:textSize="@dimen/title_text_size" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/viewCover"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_Cover"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center" />
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

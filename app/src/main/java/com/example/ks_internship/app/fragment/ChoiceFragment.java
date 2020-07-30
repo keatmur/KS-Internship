@@ -60,7 +60,7 @@ public class ChoiceFragment extends Fragment {
     private OnSongRecycleClickListener onSongRecycleClickListener = new OnSongRecycleClickListener() {
         @Override
         public void onItemClick(View v, int position) {
-            onSongListener.setSong(songListAdapter.getItems().get(position).toString());
+            onSongListener.setSong(songListAdapter.getItems().get(position));
         }
 
         @Override
@@ -125,7 +125,7 @@ public class ChoiceFragment extends Fragment {
 
         initVeiw(v);
 
-        deezerTrackArrayList =  new ArrayList<>();
+        deezerTrackArrayList = new ArrayList<>();
 
         addFab.setOnClickListener(i -> {
             Intent intent = new Intent(v.getContext(), ThirdActivity.class);

@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.fragment.ChoiceFragment;
 import com.example.ks_internship.app.fragment.ViewFragment;
+import com.example.ks_internship.app.model.DeezerTrack;
 import com.example.ks_internship.app.utils.Constants;
 import com.example.ks_internship.app.utils.lisners.OnSongListener;
 
@@ -41,8 +42,8 @@ public class MainActivity extends BaseActivity {
 
         OnSongListener onSongListener = new OnSongListener() {
             @Override
-            public void setSong(String string) {
-                displaySelected(string);
+            public void setSong(DeezerTrack track) {
+                displaySelected(track);
             }
         };
 
@@ -51,12 +52,12 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private void displaySelected(String text) {
+    private void displaySelected(DeezerTrack track) {
         if (isTwoPane) {
-            viewFragment.displayResource(text);
+            viewFragment.displayResource(track);
         } else {
             Intent viewIntent = new Intent(MainActivity.this, SecondActivity.class);
-            viewIntent.putExtra(Constants.KEY_RES_ID, text);
+            viewIntent.putExtra(Constants.KEY_RES_ID, track);
             startActivity(viewIntent);
         }
 
