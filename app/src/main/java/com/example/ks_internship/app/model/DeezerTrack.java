@@ -123,7 +123,7 @@ public class DeezerTrack implements Parcelable {
         return "Title:" + title + "\n" +
                 "Artist:" + artist.getName() + "\n" +
                 "Album:" + album.getTitle() + "\n" +
-                "Link in Deeer" + link;
+                "Link in Deezer: " + link;
     }
 
 }
