@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/view_frogmet_land_layout"
+    android:id="@+id/view_frogmet_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/default_middle_margin_small"

@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_frogmet_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="gone"
     tools:context=".app.fragment.ViewFragment">
 
     <androidx.appcompat.widget.AppCompatButton

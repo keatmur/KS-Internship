@@ -49,7 +49,7 @@ public class ViewFragment extends Fragment {
         albumTitle = v.findViewById(R.id.tv_albumTitle);
         goDeezer = v.findViewById(R.id.btn_go_dezeer);
         icCover = v.findViewById(R.id.ic_Cover);
-        relativeLayout= v.findViewById(R.id.view_frogmet_land_layout);
+        relativeLayout= v.findViewById(R.id.view_frogmet_layout);
 
 
         return v;
