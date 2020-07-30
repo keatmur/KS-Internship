@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.ks_internship.R;
@@ -28,6 +29,7 @@ public class ViewFragment extends Fragment {
     AppCompatButton goDeezer;
     AppCompatImageView icCover;
     Intent intent;
+    RelativeLayout relativeLayout;
 
     public ViewFragment() {
         // Required empty public constructor
@@ -47,6 +49,7 @@ public class ViewFragment extends Fragment {
         albumTitle = v.findViewById(R.id.tv_albumTitle);
         goDeezer = v.findViewById(R.id.btn_go_dezeer);
         icCover = v.findViewById(R.id.ic_Cover);
+        relativeLayout= v.findViewById(R.id.view_frogmet_land_layout);
 
 
         return v;
@@ -57,6 +60,7 @@ public class ViewFragment extends Fragment {
         title.setText(track.getArtist().getName() + " - " + track.getTitle());
         albumTitle.setText(track.getAlbum().getTitle());
         Glide.with(icCover).load(track.getAlbum().getCoverMedium()).placeholder(R.drawable.ic_music_note).into(icCover);
+        relativeLayout.setVisibility(getView().VISIBLE);
         goDeezer.setOnClickListener(v -> {
             intent = new Intent(Intent.ACTION_VIEW, track.getLink());
             startActivity(intent);

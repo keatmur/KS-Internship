@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_frogmet_land_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_middle_margin_small"
+    android:visibility="gone">
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_go_dezeer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_albumTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/default_middle_margin"
+        android:text="@string/go_deezer"
+        style="@style/AppButton.Dark"/>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_albumTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_titleArtist"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="@dimen/default_margin_big"
+        android:layout_marginTop="@dimen/default_middle_margin"
+         />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_titleArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewCover"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="@dimen/default_margin_big"
+        android:layout_marginTop="@dimen/default_middle_margin_small"
+        android:textSize="@dimen/title_text_size"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/viewCover"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/default_margin_big"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_Cover"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center" />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

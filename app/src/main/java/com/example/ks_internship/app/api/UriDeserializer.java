@@ -13,7 +13,7 @@ public class UriDeserializer implements JsonDeserializer<Uri> {
 
     @Override
     public Uri deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        String uriString=  json.getAsString();
+        String uriString = json.getAsString();
         Uri uri = Uri.parse(uriString);
         return uri;
     }

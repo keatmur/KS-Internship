@@ -12,6 +12,6 @@ public interface ApiService {
     Call<DeezerResponse> getData(@Query("q") String query);
 
     @GET("/search/track")
-    Call<DeezerResponse> getData(@Query("q") String query,@Query("index")int i);
+    Call<DeezerResponse> getData(@Query("q") String query, @Query("index") int i);
 
 }

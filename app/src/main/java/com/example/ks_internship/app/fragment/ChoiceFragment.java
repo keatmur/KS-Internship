@@ -46,14 +46,14 @@ public class ChoiceFragment extends Fragment {
     public OnSongListener onSongListener;
     private RecyclerView recyclerView;
     private View loaderBlock;
-    private ArrayList<DeezerTrack> deezerTrackArrayList;
-    private SongListAdapter songListAdapter;
-    private FloatingActionButton addFab;
     private AppCompatButton goButton;
     private AppCompatEditText titleTrackInput;
+
+    private ArrayList<DeezerTrack> deezerTrackArrayList;
+    private SongListAdapter songListAdapter;
     private DeezerResponse deezerResponse;
-    LinearLayoutManager layoutManager;
-    int nextCount;
+    private LinearLayoutManager layoutManager;
+    private int nextCount;
 
 
     private OnSongRecycleClickListener onSongRecycleClickListener = new OnSongRecycleClickListener() {
@@ -89,17 +89,6 @@ public class ChoiceFragment extends Fragment {
             startActivity(Intent.createChooser(intent, null));
         }
 
-        @Override
-        public void onItemEbitClick(View v, int position) {
-
-            DeezerTrack deezerTrack = songListAdapter.getItems().get(position);
-            Intent intent = new Intent(v.getContext(), ThirdActivity.class);
-            intent.putExtra(Constants.EXTRA_EBIT_POSITION, position);
-            startActivityForResult(intent, Constants.RESULT_COD_EBIT);
-
-
-        }
-
 
     };
 
@@ -129,18 +118,14 @@ public class ChoiceFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_choice, container, false);
 
-
         initVeiw(v);
         setListener();
 
         deezerTrackArrayList = new ArrayList<>();
-        nextCount= 0;
-
         songListAdapter = new SongListAdapter(deezerTrackArrayList, v.getContext());
+        nextCount = 0;
+
         songListAdapter.setListener(onSongRecycleClickListener);
-
-
-
         recyclerView.setAdapter(songListAdapter);
 
 
@@ -149,10 +134,6 @@ public class ChoiceFragment extends Fragment {
 
 
     public void setListener() {
-        addFab.setOnClickListener(i -> {
-            Intent intent = new Intent(getView().getContext(), ThirdActivity.class);
-            startActivityForResult(intent, Constants.RESULT_COD);
-        });
 
         goButton.setOnClickListener(view -> {
             searchAction();
@@ -171,11 +152,10 @@ public class ChoiceFragment extends Fragment {
 
                 if (dy > 0) {
                     if ((layoutManager.getChildCount() + layoutManager.findFirstVisibleItemPosition()) >= layoutManager.getItemCount()) {
-                       nextSearchAction();
+                        nextSearchAction();
                     }
                 }
             }
-
 
 
         });
@@ -183,13 +163,12 @@ public class ChoiceFragment extends Fragment {
 
     public void initVeiw(View v) {
         recyclerView = v.findViewById(R.id.my_recycler_view);
-        addFab = v.findViewById(R.id.addFab);
+
         loaderBlock = v.findViewById(R.id.loader_block);
         goButton = v.findViewById(R.id.btn_go);
         titleTrackInput = v.findViewById(R.id.et_titleTrack_input);
 
     }
-
 
     public void searchAction() {
 
@@ -201,38 +180,38 @@ public class ChoiceFragment extends Fragment {
         }
     }
 
-    public void nextSearchAction(){
+    public void nextSearchAction() {
         if (!TextUtils.isEmpty(deezerResponse.getNext())) {
-            nextCount=nextCount+25;
+            nextCount = nextCount + 25;
             if (TextUtils.isEmpty(titleTrackInput.getText().toString().trim())) {
                 titleTrackInput.requestFocus();
             } else {
                 KeyboardUtils.hide(titleTrackInput);
-                nextLoadRepos(titleTrackInput.getText().toString().trim(),nextCount);
+                nextLoadRepos(titleTrackInput.getText().toString().trim(), nextCount);
             }
 
         }
     }
 
-    public void nextLoadRepos(String string,int nextCount){
+    public void nextLoadRepos(String string, int nextCount) {
 
         showProgressBlock();
-        RestClient.getsInstance().getService().getData(string,nextCount).enqueue(new ApiCallback<DeezerResponse>() {
+        RestClient.getsInstance().getService().getData(string, nextCount).enqueue(new ApiCallback<DeezerResponse>() {
             @Override
             public void success(Response<DeezerResponse> response) {
                 deezerTrackArrayList.addAll(response.body().getData());
                 songListAdapter.notifyDataSetChanged();
-                deezerResponse= response.body();
+                deezerResponse = response.body();
                 hideProgressBlock();
 
             }
 
             @Override
             public void failure(DeezerRepoErrorItem deezerRepoErrorItem) {
-                if(TextUtils.isEmpty(deezerRepoErrorItem.getCode())){
+                if (TextUtils.isEmpty(deezerRepoErrorItem.getCode())) {
                     makeErrorToast("Error occurred during request: " + deezerRepoErrorItem.getMessage());
-                }else {
-                    makeErrorToast( deezerRepoErrorItem.getMessage() +"Code error:"+deezerRepoErrorItem.getCode());
+                } else {
+                    makeErrorToast(deezerRepoErrorItem.getMessage() + "Code error:" + deezerRepoErrorItem.getCode());
                 }
 
                 hideProgressBlock();
@@ -248,20 +227,20 @@ public class ChoiceFragment extends Fragment {
             @Override
             public void success(Response<DeezerResponse> response) {
                 deezerTrackArrayList.clear();
-                nextCount=0;
+                nextCount = 0;
                 deezerTrackArrayList.addAll(response.body().getData());
                 songListAdapter.notifyDataSetChanged();
-                deezerResponse= response.body();
+                deezerResponse = response.body();
                 hideProgressBlock();
 
             }
 
             @Override
             public void failure(DeezerRepoErrorItem deezerRepoErrorItem) {
-                if(TextUtils.isEmpty(deezerRepoErrorItem.getCode())){
+                if (TextUtils.isEmpty(deezerRepoErrorItem.getCode())) {
                     makeErrorToast("Error occurred during request: " + deezerRepoErrorItem.getMessage());
-                }else {
-                    makeErrorToast( deezerRepoErrorItem.getMessage() +"Code error:"+deezerRepoErrorItem.getCode());
+                } else {
+                    makeErrorToast(deezerRepoErrorItem.getMessage() + "Code error:" + deezerRepoErrorItem.getCode());
                 }
 
                 hideProgressBlock();
@@ -288,7 +267,6 @@ public class ChoiceFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -313,7 +291,6 @@ public class ChoiceFragment extends Fragment {
             }
         }
     }
-
 
     public void setOnSongListener(OnSongListener onSongListener) {
         this.onSongListener = onSongListener;

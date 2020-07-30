@@ -24,7 +24,7 @@
             android:inputType="text"
             android:imeOptions="actionGo"
             android:layout_weight="3"
-            android:hint="Repo name to find..." />
+            android:hint=" Title track to find..." />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_go"
@@ -46,16 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_search" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/default_middle_margin_small"
-        android:layout_marginBottom="60dp"
-        android:background="@color/colorAccent"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="@+id/my_recycler_view"
-        app:layout_constraintEnd_toEndOf="@+id/my_recycler_view" />
+
 
     <LinearLayout
         android:id="@+id/loader_block"

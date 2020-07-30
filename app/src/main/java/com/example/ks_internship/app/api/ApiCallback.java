@@ -15,12 +15,12 @@ import retrofit2.Response;
 
 public abstract class ApiCallback<T> implements Callback<T> {
 
-   public abstract void success(Response<T> response);
+    public abstract void success(Response<T> response);
 
     public abstract void failure(DeezerRepoErrorItem deezerRepoErrorItem);
 
     @Override
-    public void onResponse( Call<T> call,  Response<T> response) {
+    public void onResponse(Call<T> call, Response<T> response) {
 
         if (!response.isSuccessful()) {
             Converter<ResponseBody, DeezerRepoErrorItem> converter = RestClient.getsInstance().getRetrofit().responseBodyConverter(DeezerRepoErrorItem.class, new Annotation[0]);
@@ -32,17 +32,16 @@ public abstract class ApiCallback<T> implements Callback<T> {
                 failure(new DeezerRepoErrorItem("Unhandled error! Code: " + response.code()));
 
             }
-        }else{
-                success(response);
-            }
-
+        } else {
+            success(response);
+        }
 
 
     }
 
     @Override
     public void onFailure(@NotNull Call<T> call, Throwable t) {
-       failure(new DeezerRepoErrorItem("Unexpected error! Info: " + t.getMessage()));
+        failure(new DeezerRepoErrorItem("Unexpected error! Info: " + t.getMessage()));
 
     }
 }

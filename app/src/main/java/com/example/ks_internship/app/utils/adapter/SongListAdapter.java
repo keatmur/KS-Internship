@@ -65,12 +65,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
                 listener.onItemShareClick(v, holder.getAdapterPosition());
             }
         });
-        holder.ebit.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemEbitClick(v, holder.getAdapterPosition());
-                viewBinderHelper.closeLayout(String.valueOf(position));
-            }
-        });
+
 
         holder.name_song.setText(items.get(position).getTitleShord());
         holder.singer_song.setText(items.get(position).getArtist().getName());
@@ -122,7 +117,6 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
             frontLayout = itemView.findViewById(R.id.front_layout);
             delete = itemView.findViewById(R.id.deleteBtn);
             share = itemView.findViewById(R.id.shareBtn);
-            ebit = itemView.findViewById(R.id.ebitBtn);
             ic_album = itemView.findViewById(R.id.ic_song);
 
 
