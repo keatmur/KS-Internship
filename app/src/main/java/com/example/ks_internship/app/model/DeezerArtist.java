@@ -1,5 +1,6 @@
 package com.example.ks_internship.app.model;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,9 +8,9 @@ import java.util.Objects;
 
 public class DeezerArtist implements Parcelable {
     private String name;
-    private String link;
+    private Uri link;
 
-    public DeezerArtist(String name, String link) {
+    public DeezerArtist(String name, Uri link) {
 
         this.name = name;
         this.link = link;
@@ -17,13 +18,13 @@ public class DeezerArtist implements Parcelable {
 
     protected DeezerArtist(Parcel in) {
         name = in.readString();
-        link = in.readString();
+        link = Uri.parse(in.readString());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeString(link);
+        dest.writeString(link.toString());
     }
 
     @Override
@@ -51,11 +52,11 @@ public class DeezerArtist implements Parcelable {
         this.name = name;
     }
 
-    public String getLink() {
+    public Uri getLink() {
         return link;
     }
 
-    public void setLink(String link) {
+    public void setLink(Uri link) {
         this.link = link;
 
     }

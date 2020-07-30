@@ -1,19 +1,23 @@
 package com.example.ks_internship.app.model;
 
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
 public class DeezerTrack implements Parcelable {
     private String title;
+    @SerializedName("title_short")
     private String titleShord;
-    private String link;
+    private Uri link;
     private DeezerArtist artist;
     private DeezerAlbum album;
 
-    public DeezerTrack(String title, String titleShord, String link, DeezerArtist artist, DeezerAlbum album) {
+    public DeezerTrack(String title, String titleShord, Uri link, DeezerArtist artist, DeezerAlbum album) {
 
         this.titleShord = titleShord;
         this.link = link;
@@ -26,7 +30,7 @@ public class DeezerTrack implements Parcelable {
     protected DeezerTrack(Parcel in) {
         title = in.readString();
         titleShord = in.readString();
-        link = in.readString();
+        link = Uri.parse(in.readString());
         artist = in.readParcelable(DeezerArtist.class.getClassLoader());
         album = in.readParcelable(DeezerAlbum.class.getClassLoader());
     }
@@ -35,7 +39,7 @@ public class DeezerTrack implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(titleShord);
-        dest.writeString(link);
+        dest.writeString(link.toString());
         dest.writeParcelable(artist, flags);
         dest.writeParcelable(album, flags);
     }
@@ -73,11 +77,11 @@ public class DeezerTrack implements Parcelable {
         this.titleShord = titleShord;
     }
 
-    public String getLink() {
+    public Uri getLink() {
         return link;
     }
 
-    public void setLink(String link) {
+    public void setLink(Uri link) {
         this.link = link;
     }
 

@@ -8,24 +8,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.activity.ThirdActivity;
+import com.example.ks_internship.app.api.ApiCallback;
 import com.example.ks_internship.app.api.RestClient;
 import com.example.ks_internship.app.model.DeezerRepoErrorItem;
 import com.example.ks_internship.app.model.DeezerResponse;
@@ -37,14 +36,12 @@ import com.example.ks_internship.app.utils.lisners.OnSongListener;
 import com.example.ks_internship.app.utils.lisners.OnSongRecycleClickListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
 public class ChoiceFragment extends Fragment {
+
 
     public OnSongListener onSongListener;
     private RecyclerView recyclerView;
@@ -53,8 +50,10 @@ public class ChoiceFragment extends Fragment {
     private SongListAdapter songListAdapter;
     private FloatingActionButton addFab;
     private AppCompatButton goButton;
-    private ProgressBar progressBar;
     private AppCompatEditText titleTrackInput;
+    private DeezerResponse deezerResponse;
+    LinearLayoutManager layoutManager;
+    int nextCount;
 
 
     private OnSongRecycleClickListener onSongRecycleClickListener = new OnSongRecycleClickListener() {
@@ -115,6 +114,14 @@ public class ChoiceFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        layoutManager = new LinearLayoutManager(getView().getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -124,26 +131,54 @@ public class ChoiceFragment extends Fragment {
 
 
         initVeiw(v);
+        setListener();
 
         deezerTrackArrayList = new ArrayList<>();
-
-        addFab.setOnClickListener(i -> {
-            Intent intent = new Intent(v.getContext(), ThirdActivity.class);
-            startActivityForResult(intent, Constants.RESULT_COD);
-        });
-
-        goButton.setOnClickListener(view -> {
-            SearchAction();
-        });
+        nextCount= 0;
 
         songListAdapter = new SongListAdapter(deezerTrackArrayList, v.getContext());
         songListAdapter.setListener(onSongRecycleClickListener);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
+
+
         recyclerView.setAdapter(songListAdapter);
 
 
         return v;
+    }
+
+
+    public void setListener() {
+        addFab.setOnClickListener(i -> {
+            Intent intent = new Intent(getView().getContext(), ThirdActivity.class);
+            startActivityForResult(intent, Constants.RESULT_COD);
+        });
+
+        goButton.setOnClickListener(view -> {
+            searchAction();
+        });
+
+        titleTrackInput.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_GO) {
+                searchAction();
+                return true;
+            }
+            return false;
+        });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if (dy > 0) {
+                    if ((layoutManager.getChildCount() + layoutManager.findFirstVisibleItemPosition()) >= layoutManager.getItemCount()) {
+                       nextSearchAction();
+                    }
+                }
+            }
+
+
+
+        });
     }
 
     public void initVeiw(View v) {
@@ -156,7 +191,7 @@ public class ChoiceFragment extends Fragment {
     }
 
 
-    public void SearchAction() {
+    public void searchAction() {
 
         if (TextUtils.isEmpty(titleTrackInput.getText().toString().trim())) {
             titleTrackInput.requestFocus();
@@ -166,43 +201,72 @@ public class ChoiceFragment extends Fragment {
         }
     }
 
-    public void loadRepos(String title) {
+    public void nextSearchAction(){
+        if (!TextUtils.isEmpty(deezerResponse.getNext())) {
+            nextCount=nextCount+25;
+            if (TextUtils.isEmpty(titleTrackInput.getText().toString().trim())) {
+                titleTrackInput.requestFocus();
+            } else {
+                KeyboardUtils.hide(titleTrackInput);
+                nextLoadRepos(titleTrackInput.getText().toString().trim(),nextCount);
+            }
+
+        }
+    }
+
+    public void nextLoadRepos(String string,int nextCount){
+
         showProgressBlock();
-        RestClient.getsInstance().getService().getData(title).enqueue(new Callback<DeezerResponse>() {
-
+        RestClient.getsInstance().getService().getData(string,nextCount).enqueue(new ApiCallback<DeezerResponse>() {
             @Override
-            public void onResponse(@NotNull Call<DeezerResponse> call, @NotNull Response<DeezerResponse> response) {
-
-                if (!response.isSuccessful()) {
-                    Converter<ResponseBody, DeezerRepoErrorItem> converter = RestClient.getsInstance().getRetrofit().responseBodyConverter(DeezerRepoErrorItem.class, new Annotation[0]);
-
-                    try {
-                        DeezerRepoErrorItem repoError = converter.convert(response.errorBody());
-                        makeErrorToast(repoError.getMessage() + " \n Details: " + repoError.getCode());
-                    } catch (Exception e) {
-                        makeErrorToast("Unhandled error. Code: " + response.code());
-                    }
-
-                    hideProgressBlock();
-                    return;
-
-                }
-
-                deezerTrackArrayList.clear();
+            public void success(Response<DeezerResponse> response) {
                 deezerTrackArrayList.addAll(response.body().getData());
                 songListAdapter.notifyDataSetChanged();
+                deezerResponse= response.body();
                 hideProgressBlock();
 
             }
-
 
             @Override
-            public void onFailure(@NotNull Call<DeezerResponse> call, Throwable t) {
+            public void failure(DeezerRepoErrorItem deezerRepoErrorItem) {
+                if(TextUtils.isEmpty(deezerRepoErrorItem.getCode())){
+                    makeErrorToast("Error occurred during request: " + deezerRepoErrorItem.getMessage());
+                }else {
+                    makeErrorToast( deezerRepoErrorItem.getMessage() +"Code error:"+deezerRepoErrorItem.getCode());
+                }
 
-                makeErrorToast("Error occurred during request: " + t.getMessage());
-                t.printStackTrace();
                 hideProgressBlock();
             }
+
+
+        });
+    }
+
+    public void loadRepos(String title) {
+        showProgressBlock();
+        RestClient.getsInstance().getService().getData(title).enqueue(new ApiCallback<DeezerResponse>() {
+            @Override
+            public void success(Response<DeezerResponse> response) {
+                deezerTrackArrayList.clear();
+                nextCount=0;
+                deezerTrackArrayList.addAll(response.body().getData());
+                songListAdapter.notifyDataSetChanged();
+                deezerResponse= response.body();
+                hideProgressBlock();
+
+            }
+
+            @Override
+            public void failure(DeezerRepoErrorItem deezerRepoErrorItem) {
+                if(TextUtils.isEmpty(deezerRepoErrorItem.getCode())){
+                    makeErrorToast("Error occurred during request: " + deezerRepoErrorItem.getMessage());
+                }else {
+                    makeErrorToast( deezerRepoErrorItem.getMessage() +"Code error:"+deezerRepoErrorItem.getCode());
+                }
+
+                hideProgressBlock();
+            }
+
 
         });
     }

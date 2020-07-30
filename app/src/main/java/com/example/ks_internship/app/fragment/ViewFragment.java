@@ -58,7 +58,7 @@ public class ViewFragment extends Fragment {
         albumTitle.setText(track.getAlbum().getTitle());
         Glide.with(icCover).load(track.getAlbum().getCoverMedium()).placeholder(R.drawable.ic_music_note).into(icCover);
         goDeezer.setOnClickListener(v -> {
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(track.getLink()));
+            intent = new Intent(Intent.ACTION_VIEW, track.getLink());
             startActivity(intent);
         });
 

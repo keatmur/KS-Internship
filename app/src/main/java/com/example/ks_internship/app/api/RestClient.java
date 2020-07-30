@@ -1,5 +1,7 @@
 package com.example.ks_internship.app.api;
 
+import android.net.Uri;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -25,6 +27,7 @@ public class RestClient {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Uri.class, new UriDeserializer())
                 .create();
 
         retrofit = new Retrofit.Builder()

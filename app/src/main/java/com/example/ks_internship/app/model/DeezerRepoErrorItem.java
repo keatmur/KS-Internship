@@ -6,6 +6,10 @@ public class DeezerRepoErrorItem {
     private String message;
     private String code;
 
+    public DeezerRepoErrorItem(String message) {
+        this.message = message;
+    }
+
     public String getMessage() {
         return message;
     }
