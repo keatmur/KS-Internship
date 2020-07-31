@@ -23,22 +23,29 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ks_internship.R;
-import com.example.ks_internship.app.activity.ThirdActivity;
+
 import com.example.ks_internship.app.api.ApiCallback;
 import com.example.ks_internship.app.api.RestClient;
 import com.example.ks_internship.app.model.DeezerRepoErrorItem;
 import com.example.ks_internship.app.model.DeezerResponse;
 import com.example.ks_internship.app.model.DeezerTrack;
-import com.example.ks_internship.app.utils.Constants;
+
 import com.example.ks_internship.app.utils.KeyboardUtils;
+import com.example.ks_internship.app.utils.SaveSearchHistory;
 import com.example.ks_internship.app.utils.adapter.SongListAdapter;
 import com.example.ks_internship.app.utils.lisners.OnSongListener;
 import com.example.ks_internship.app.utils.lisners.OnSongRecycleClickListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import com.google.gson.Gson;
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
-import static android.app.Activity.RESULT_OK;
+
+
 
 public class ChoiceFragment extends Fragment {
 
@@ -50,11 +57,12 @@ public class ChoiceFragment extends Fragment {
     private AppCompatEditText titleTrackInput;
 
     private ArrayList<DeezerTrack> deezerTrackArrayList;
+    private List<String> titleSearch;
     private SongListAdapter songListAdapter;
     private DeezerResponse deezerResponse;
     private LinearLayoutManager layoutManager;
     private int nextCount;
-
+    Gson gson ;
 
     private OnSongRecycleClickListener onSongRecycleClickListener = new OnSongRecycleClickListener() {
         @Override
@@ -107,7 +115,7 @@ public class ChoiceFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        layoutManager = new LinearLayoutManager(getView().getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
     }
@@ -121,9 +129,17 @@ public class ChoiceFragment extends Fragment {
         initVeiw(v);
         setListener();
 
+        gson = new Gson();
         deezerTrackArrayList = new ArrayList<>();
+        titleSearch = new ArrayList<>();
         songListAdapter = new SongListAdapter(deezerTrackArrayList, v.getContext());
+
+        String jsonText = SaveSearchHistory.getTitles(v.getContext());
+        if(!TextUtils.isEmpty(jsonText)) {
+            titleSearch.addAll(Arrays.asList(gson.fromJson(jsonText, String[].class)));
+        }
         nextCount = 0;
+
 
         songListAdapter.setListener(onSongRecycleClickListener);
         recyclerView.setAdapter(songListAdapter);
@@ -170,13 +186,23 @@ public class ChoiceFragment extends Fragment {
 
     }
 
-    public void searchAction() {
+    public void setResult(String string){
+        titleTrackInput.setText(string);
+        loadRepos(string);
 
-        if (TextUtils.isEmpty(titleTrackInput.getText().toString().trim())) {
+    }
+
+    public void searchAction() {
+        String title =titleTrackInput.getText().toString().trim();
+        if (TextUtils.isEmpty(title)) {
             titleTrackInput.requestFocus();
         } else {
+
             KeyboardUtils.hide(titleTrackInput);
-            loadRepos(titleTrackInput.getText().toString().trim());
+            loadRepos(title);
+            titleSearch.add(title);
+            SaveSearchHistory.setTitleSearch(getContext(),gson.toJson(titleSearch));
+
         }
     }
 
@@ -221,6 +247,8 @@ public class ChoiceFragment extends Fragment {
         });
     }
 
+
+
     public void loadRepos(String title) {
         showProgressBlock();
         RestClient.getsInstance().getService().getData(title).enqueue(new ApiCallback<DeezerResponse>() {
@@ -252,7 +280,7 @@ public class ChoiceFragment extends Fragment {
 
 
     private void makeErrorToast(String errorMessage) {
-        Toast.makeText(getView().getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     private void showProgressBlock() {
@@ -267,30 +295,6 @@ public class ChoiceFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.RESULT_COD) {
-            if (resultCode == RESULT_OK) {
-                if (data.getExtras() != null) {
-                    deezerTrackArrayList.add(data.getExtras().getParcelable(Constants.EXTRA_MESSAGE));
-                    songListAdapter.notifyDataSetChanged();
-                    recyclerView.smoothScrollToPosition(recyclerView.getBottom());
-
-                }
-            }
-        }
-        if (requestCode == Constants.RESULT_COD_EBIT) {
-            if (resultCode == RESULT_OK) {
-                if (data.getExtras() != null) {
-                    deezerTrackArrayList.set(data.getExtras().getInt(Constants.EXTRA_EBIT_POSITION), data.getExtras().getParcelable(Constants.EXTRA_MESSAGE));
-                    songListAdapter.notifyItemChanged(data.getExtras().getInt(Constants.EXTRA_EBIT_POSITION));
-
-
-                }
-            }
-        }
-    }
 
     public void setOnSongListener(OnSongListener onSongListener) {
         this.onSongListener = onSongListener;

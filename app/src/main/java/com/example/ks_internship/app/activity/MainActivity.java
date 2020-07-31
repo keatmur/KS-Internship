@@ -5,7 +5,6 @@ import com.example.ks_internship.app.base.BaseActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 
 import com.example.ks_internship.R;
@@ -50,6 +49,18 @@ public class MainActivity extends BaseActivity {
 
         choiceFragment.setOnSongListener(onSongListener);
     }
+
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.RESULT_COD) {
+            if (resultCode == RESULT_OK) {
+                if (data.getExtras() != null) {
+                    choiceFragment.setResult(data.getStringExtra(Constants.EXTRA_SEARCH_HISTORY));
+                }
+            }
+            }
+        }
+
 
 
     private void displaySelected(DeezerTrack track) {

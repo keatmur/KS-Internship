@@ -6,85 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".app.activity.ThirdActivity">
 
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/inputBtn"
-        style="@style/AppButton.Dark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin_big"
-        android:text="@string/ok"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alibom_input" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/singerSong_input"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_history_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin_big"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
         android:layout_marginTop="@dimen/default_margin_big"
-        android:hint="@string/singer"
-        app:layout_constraintTop_toBottomOf="@id/nameSong_input">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/genre_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin_big"
-        android:layout_marginTop="@dimen/default_margin_big"
-        android:hint="@string/genre"
-        app:layout_constraintTop_toBottomOf="@id/singerSong_input">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/alibom_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin_big"
-        android:layout_marginTop="@dimen/default_margin_big"
-        android:hint="@string/alibom"
-        app:layout_constraintTop_toBottomOf="@id/genre_input">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nameSong_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin_big"
-        android:layout_marginTop="@dimen/default_margin_big"
-        android:hint="@string/title"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <include
         android:id="@+id/toolbar"
