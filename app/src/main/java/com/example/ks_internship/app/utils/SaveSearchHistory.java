@@ -12,6 +12,15 @@ public class SaveSearchHistory {
     private static  SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences(Constants.PREFD_NAME,Context.MODE_PRIVATE);
     }
+    public static void setInputSearch(Context context, String strings) {
+        getPrefs(context).edit().putString(Constants.PRFED_INPUT_SEARCH,  strings).apply(); //TODO: or commit()?
+    }
+    public static String getInputSearch(Context context) {
+        return getPrefs(context).getString(Constants.PRFED_INPUT_SEARCH,"");
+    }
+
+
+
     public static void setTitleSearch(Context context, String strings) {
         getPrefs(context).edit().putString(Constants.PRFED_TITLES,  strings).apply(); //TODO: or commit()?
     }

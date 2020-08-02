@@ -34,6 +34,7 @@ import com.example.ks_internship.app.model.DeezerTrack;
 
 import com.example.ks_internship.app.utils.KeyboardUtils;
 import com.example.ks_internship.app.utils.SaveSearchHistory;
+import com.example.ks_internship.app.utils.adapter.SearcHistoryAdapter;
 import com.example.ks_internship.app.utils.adapter.SongListAdapter;
 import com.example.ks_internship.app.utils.lisners.OnSongListener;
 import com.example.ks_internship.app.utils.lisners.OnSongRecycleClickListener;
@@ -78,7 +79,7 @@ public class ChoiceFragment extends Fragment {
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            deezerTrackArrayList.remove(position);
+                            db.getPersonDao().deleteTrack(deezerTrackArrayList.get(position));
                             songListAdapter.notifyItemRemoved(position);
 
 
@@ -151,7 +152,7 @@ public class ChoiceFragment extends Fragment {
             songListAdapter.notifyDataSetChanged();
         });
 
-
+       titleTrackInput.setText(SaveSearchHistory.getInputSearch(getContext()));
         return v;
     }
 
@@ -197,6 +198,7 @@ public class ChoiceFragment extends Fragment {
         titleTrackInput.setText(string);
         loadRepos(string);
 
+
     }
 
     public void searchAction() {
@@ -204,26 +206,23 @@ public class ChoiceFragment extends Fragment {
         if (TextUtils.isEmpty(title)) {
             titleTrackInput.requestFocus();
         } else {
-
             KeyboardUtils.hide(titleTrackInput);
             loadRepos(title);
             titleSearch.add(title);
             SaveSearchHistory.setTitleSearch(getContext(), gson.toJson(titleSearch));
-
         }
     }
 
     public void nextSearchAction() {
-        String title = titleTrackInput.getText().toString().trim();
-        if (TextUtils.isEmpty(title)) {
-            titleTrackInput.requestFocus();
-        } else {
+       String title = SaveSearchHistory.getInputSearch(getContext());
+       if(deezerResponse!=null) {
+           if (!TextUtils.isEmpty(deezerResponse.getNext())) {
+               nextCount = nextCount + 25;
+               nextLoadRepos(title, nextCount);
 
-            if (!TextUtils.isEmpty(deezerResponse.getNext())) {
-                nextCount = nextCount + 25;
-                nextLoadRepos(title, nextCount);
-            }
-        }
+           }
+       }
+
     }
 
     public void nextLoadRepos(String string, int nextCount) {
@@ -266,7 +265,7 @@ public class ChoiceFragment extends Fragment {
                 songListAdapter.notifyDataSetChanged();
                 deezerResponse = response.body();
                 hideProgressBlock();
-
+                SaveSearchHistory.setInputSearch(getContext(),title);
             }
 
             @Override

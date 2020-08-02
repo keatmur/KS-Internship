@@ -6,5 +6,7 @@ public class Constants {
     public final static String KEY_RES_ID = "KEY_RES_ID";
     public final static String PREFD_NAME="com.example.ks_internship.app.PREFD_NAME";
     public  final  static String PRFED_TITLES="com.example.ks_internship.app.PRFED_TITLES";
+    public final static String PRFED_INPUT_SEARCH="com.example.ks_internship.app.PERF_INPUT_SEARCH";
+    public  final  static String PRFED_NEXT="com.example.ks_internship.app.PRFED_NEXT";
 
 }
