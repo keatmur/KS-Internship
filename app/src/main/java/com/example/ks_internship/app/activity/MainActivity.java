@@ -46,7 +46,6 @@ public class MainActivity extends BaseActivity {
             }
         };
 
-
         choiceFragment.setOnSongListener(onSongListener);
     }
 

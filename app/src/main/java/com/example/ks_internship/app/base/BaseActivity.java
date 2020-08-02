@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.ks_internship.R;
 import com.example.ks_internship.app.activity.MainActivity;
 import com.example.ks_internship.app.activity.ThirdActivity;
+import com.example.ks_internship.app.app.AppKsInternship;
+import com.example.ks_internship.app.database.AppDatabase;
 import com.example.ks_internship.app.utils.Constants;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +56,7 @@ public  class BaseActivity extends AppCompatActivity {
 
 
     }
+
 
     public Toolbar getToolbar() {
         return toolbar;

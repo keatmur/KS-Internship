@@ -7,21 +7,36 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
+
 public class DeezerAlbum implements Parcelable {
+    @ColumnInfo(name = "albumId")
+    private int id;
+    @ColumnInfo(name = "titleAlbum")
     private String title;
 
+    @ColumnInfo(name = "urlCoverSmall")
     @SerializedName("cover_small")
     private String coverSmall;
+
+    @ColumnInfo(name = "urlCoverMedium")
     @SerializedName("cover_medium")
     private String coverMedium;
 
-    public DeezerAlbum(String title, String coverSmall, String coverMedium) {
+
+    public DeezerAlbum(int id, String title, String coverSmall, String coverMedium) {
+        this.id = id;
         this.title = title;
         this.coverSmall = coverSmall;
         this.coverMedium = coverMedium;
     }
 
     protected DeezerAlbum(Parcel in) {
+        id=in.readInt();
         title = in.readString();
         coverSmall = in.readString();
         coverMedium = in.readString();
@@ -29,6 +44,7 @@ public class DeezerAlbum implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(coverSmall);
         dest.writeString(coverMedium);
@@ -88,5 +104,13 @@ public class DeezerAlbum implements Parcelable {
     @Override
     public int hashCode() {
         return Objects.hash(getTitle(), getCoverSmall(), getCoverMedium());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

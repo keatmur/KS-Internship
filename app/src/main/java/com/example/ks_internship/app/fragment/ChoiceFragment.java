@@ -26,6 +26,8 @@ import com.example.ks_internship.R;
 
 import com.example.ks_internship.app.api.ApiCallback;
 import com.example.ks_internship.app.api.RestClient;
+import com.example.ks_internship.app.app.AppKsInternship;
+import com.example.ks_internship.app.database.AppDatabase;
 import com.example.ks_internship.app.model.DeezerRepoErrorItem;
 import com.example.ks_internship.app.model.DeezerResponse;
 import com.example.ks_internship.app.model.DeezerTrack;
@@ -45,8 +47,6 @@ import java.util.HashSet;
 import java.util.List;
 
 
-
-
 public class ChoiceFragment extends Fragment {
 
 
@@ -62,7 +62,8 @@ public class ChoiceFragment extends Fragment {
     private DeezerResponse deezerResponse;
     private LinearLayoutManager layoutManager;
     private int nextCount;
-    Gson gson ;
+    Gson gson;
+    AppDatabase db;
 
     private OnSongRecycleClickListener onSongRecycleClickListener = new OnSongRecycleClickListener() {
         @Override
@@ -135,14 +136,20 @@ public class ChoiceFragment extends Fragment {
         songListAdapter = new SongListAdapter(deezerTrackArrayList, v.getContext());
 
         String jsonText = SaveSearchHistory.getTitles(v.getContext());
-        if(!TextUtils.isEmpty(jsonText)) {
+        if (!TextUtils.isEmpty(jsonText)) {
             titleSearch.addAll(Arrays.asList(gson.fromJson(jsonText, String[].class)));
         }
         nextCount = 0;
 
-
         songListAdapter.setListener(onSongRecycleClickListener);
         recyclerView.setAdapter(songListAdapter);
+
+        db = AppKsInternship.getInstance().getDatabase();
+        db.getPersonDao().getAllTrackS().observe(this, getTrackes -> {
+            deezerTrackArrayList.clear();
+            deezerTrackArrayList.addAll(getTrackes);
+            songListAdapter.notifyDataSetChanged();
+        });
 
 
         return v;
@@ -186,14 +193,14 @@ public class ChoiceFragment extends Fragment {
 
     }
 
-    public void setResult(String string){
+    public void setResult(String string) {
         titleTrackInput.setText(string);
         loadRepos(string);
 
     }
 
     public void searchAction() {
-        String title =titleTrackInput.getText().toString().trim();
+        String title = titleTrackInput.getText().toString().trim();
         if (TextUtils.isEmpty(title)) {
             titleTrackInput.requestFocus();
         } else {
@@ -201,21 +208,21 @@ public class ChoiceFragment extends Fragment {
             KeyboardUtils.hide(titleTrackInput);
             loadRepos(title);
             titleSearch.add(title);
-            SaveSearchHistory.setTitleSearch(getContext(),gson.toJson(titleSearch));
+            SaveSearchHistory.setTitleSearch(getContext(), gson.toJson(titleSearch));
 
         }
     }
 
     public void nextSearchAction() {
-        if (!TextUtils.isEmpty(deezerResponse.getNext())) {
-            nextCount = nextCount + 25;
-            if (TextUtils.isEmpty(titleTrackInput.getText().toString().trim())) {
-                titleTrackInput.requestFocus();
-            } else {
-                KeyboardUtils.hide(titleTrackInput);
-                nextLoadRepos(titleTrackInput.getText().toString().trim(), nextCount);
-            }
+        String title = titleTrackInput.getText().toString().trim();
+        if (TextUtils.isEmpty(title)) {
+            titleTrackInput.requestFocus();
+        } else {
 
+            if (!TextUtils.isEmpty(deezerResponse.getNext())) {
+                nextCount = nextCount + 25;
+                nextLoadRepos(title, nextCount);
+            }
         }
     }
 
@@ -225,7 +232,7 @@ public class ChoiceFragment extends Fragment {
         RestClient.getsInstance().getService().getData(string, nextCount).enqueue(new ApiCallback<DeezerResponse>() {
             @Override
             public void success(Response<DeezerResponse> response) {
-                deezerTrackArrayList.addAll(response.body().getData());
+                db.getPersonDao().insertAllTracks(response.body().getData());
                 songListAdapter.notifyDataSetChanged();
                 deezerResponse = response.body();
                 hideProgressBlock();
@@ -248,15 +255,14 @@ public class ChoiceFragment extends Fragment {
     }
 
 
-
     public void loadRepos(String title) {
         showProgressBlock();
         RestClient.getsInstance().getService().getData(title).enqueue(new ApiCallback<DeezerResponse>() {
             @Override
             public void success(Response<DeezerResponse> response) {
-                deezerTrackArrayList.clear();
+                db.getPersonDao().deleteAllTracks();
                 nextCount = 0;
-                deezerTrackArrayList.addAll(response.body().getData());
+                db.getPersonDao().insertAllTracks(response.body().getData());
                 songListAdapter.notifyDataSetChanged();
                 deezerResponse = response.body();
                 hideProgressBlock();

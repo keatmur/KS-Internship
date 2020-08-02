@@ -6,25 +6,34 @@ import android.os.Parcelable;
 
 import java.util.Objects;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+
 public class DeezerArtist implements Parcelable {
+    @ColumnInfo(name = "idArtist")
+    private int  id;
+    @ColumnInfo(name = "nameArtist")
     private String name;
-    private Uri link;
 
-    public DeezerArtist(String name, Uri link) {
-
+    public DeezerArtist(int id,String name) {
+        this.id=id;
         this.name = name;
-        this.link = link;
+
     }
 
     protected DeezerArtist(Parcel in) {
+        id=in.readInt();
         name = in.readString();
-        link = Uri.parse(in.readString());
+
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(name);
-        dest.writeString(link.toString());
+
     }
 
     @Override
@@ -52,28 +61,26 @@ public class DeezerArtist implements Parcelable {
         this.name = name;
     }
 
-    public Uri getLink() {
-        return link;
-    }
-
-    public void setLink(Uri link) {
-        this.link = link;
-
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof DeezerArtist)) return false;
         DeezerArtist that = (DeezerArtist) o;
-        return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getLink(), that.getLink());
+        return Objects.equals(getName(), that.getName()) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getLink());
+        return Objects.hash(getName());
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

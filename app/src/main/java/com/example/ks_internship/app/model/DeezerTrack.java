@@ -5,20 +5,33 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.ks_internship.app.database.UriConverter;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+@Entity(tableName = "track")
+@TypeConverters({UriConverter.class})
 public class DeezerTrack implements Parcelable {
+    @PrimaryKey
+    private int id;
     private String title;
     @SerializedName("title_short")
     private String titleShord;
     private Uri link;
+    @Embedded
     private DeezerArtist artist;
+    @Embedded
     private DeezerAlbum album;
 
-    public DeezerTrack(String title, String titleShord, Uri link, DeezerArtist artist, DeezerAlbum album) {
-
+    public DeezerTrack(int id,String title, String titleShord, Uri link, DeezerArtist artist, DeezerAlbum album) {
+        this.id=id;
+        this.title=title;
         this.titleShord = titleShord;
         this.link = link;
         this.artist = artist;
@@ -28,6 +41,7 @@ public class DeezerTrack implements Parcelable {
 
 
     protected DeezerTrack(Parcel in) {
+        id=in.readInt();
         title = in.readString();
         titleShord = in.readString();
         link = Uri.parse(in.readString());
@@ -37,6 +51,7 @@ public class DeezerTrack implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(titleShord);
         dest.writeString(link.toString());
@@ -99,6 +114,14 @@ public class DeezerTrack implements Parcelable {
 
     public void setAlbum(DeezerAlbum album) {
         this.album = album;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
