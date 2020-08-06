@@ -187,7 +187,6 @@ public class ChoiceFragment extends Fragment {
 
     public void initVeiw(View v) {
         recyclerView = v.findViewById(R.id.my_recycler_view);
-
         loaderBlock = v.findViewById(R.id.loader_block);
         goButton = v.findViewById(R.id.btn_go);
         titleTrackInput = v.findViewById(R.id.et_titleTrack_input);

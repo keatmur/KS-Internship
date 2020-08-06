@@ -7,7 +7,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/name_song"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:gravity="center"
             android:textSize="@dimen/title_text_size" />
 
