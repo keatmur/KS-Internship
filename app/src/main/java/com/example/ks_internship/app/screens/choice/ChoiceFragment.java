@@ -1,15 +1,14 @@
-package com.example.ks_internship.app.fragment;
+package com.example.ks_internship.app.screens.choice;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Response;
@@ -19,14 +18,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.ks_internship.R;
 
 import com.example.ks_internship.app.api.ApiCallback;
 import com.example.ks_internship.app.api.RestClient;
-import com.example.ks_internship.app.app.AppKsInternship;
 import com.example.ks_internship.app.database.AppDatabase;
 import com.example.ks_internship.app.model.DeezerRepoErrorItem;
 import com.example.ks_internship.app.model.DeezerResponse;
@@ -34,21 +31,16 @@ import com.example.ks_internship.app.model.DeezerTrack;
 
 import com.example.ks_internship.app.utils.KeyboardUtils;
 import com.example.ks_internship.app.utils.SaveSearchHistory;
-import com.example.ks_internship.app.utils.adapter.SearcHistoryAdapter;
 import com.example.ks_internship.app.utils.adapter.SongListAdapter;
 import com.example.ks_internship.app.utils.lisners.OnSongListener;
 import com.example.ks_internship.app.utils.lisners.OnSongRecycleClickListener;
 
-import com.google.gson.Gson;
-
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 
-public class ChoiceFragment extends Fragment {
+public class ChoiceFragment extends Fragment  implements  ChoiceContract.View{
 
 
     public OnSongListener onSongListener;
@@ -58,13 +50,12 @@ public class ChoiceFragment extends Fragment {
     private AppCompatEditText titleTrackInput;
 
     private ArrayList<DeezerTrack> deezerTrackArrayList;
-    private List<String> titleSearch;
     private SongListAdapter songListAdapter;
     private DeezerResponse deezerResponse;
     private LinearLayoutManager layoutManager;
-    private int nextCount;
-    Gson gson;
-    AppDatabase db;
+
+    private ChoiceContract.Presenter presenter;
+
 
     private OnSongRecycleClickListener onSongRecycleClickListener = new OnSongRecycleClickListener() {
         @Override
@@ -79,10 +70,7 @@ public class ChoiceFragment extends Fragment {
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            db.getPersonDao().deleteTrack(deezerTrackArrayList.get(position));
-                            songListAdapter.notifyItemRemoved(position);
-
-
+                            presenter.deleteTrack(deezerTrackArrayList.get(position));
                         }
                     })
                     .setNegativeButton(getString(R.string.cancel), null)
@@ -102,6 +90,10 @@ public class ChoiceFragment extends Fragment {
 
     };
 
+    @Override
+    public void setPresenter(ChoiceContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
 
     public ChoiceFragment() {
         // Required empty public constructor
@@ -131,28 +123,12 @@ public class ChoiceFragment extends Fragment {
         initVeiw(v);
         setListener();
 
-        gson = new Gson();
         deezerTrackArrayList = new ArrayList<>();
-        titleSearch = new ArrayList<>();
         songListAdapter = new SongListAdapter(deezerTrackArrayList, v.getContext());
-
-        String jsonText = SaveSearchHistory.getTitles(v.getContext());
-        if (!TextUtils.isEmpty(jsonText)) {
-            titleSearch.addAll(Arrays.asList(gson.fromJson(jsonText, String[].class)));
-        }
-        nextCount = 0;
-
         songListAdapter.setListener(onSongRecycleClickListener);
         recyclerView.setAdapter(songListAdapter);
 
-        db = AppKsInternship.getInstance().getDatabase();
-        db.getPersonDao().getAllTrackS().observe(this, getTrackes -> {
-            deezerTrackArrayList.clear();
-            deezerTrackArrayList.addAll(getTrackes);
-            songListAdapter.notifyDataSetChanged();
-        });
-
-       titleTrackInput.setText(SaveSearchHistory.getInputSearch(getContext()));
+        presenter.takeView(this);
         return v;
     }
 
@@ -160,12 +136,12 @@ public class ChoiceFragment extends Fragment {
     public void setListener() {
 
         goButton.setOnClickListener(view -> {
-            searchAction();
+            presenter.search(titleTrackInput.getText().toString().trim());
         });
 
         titleTrackInput.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == EditorInfo.IME_ACTION_GO) {
-                searchAction();
+                presenter.search(titleTrackInput.getText().toString().trim());
                 return true;
             }
             return false;
@@ -176,7 +152,7 @@ public class ChoiceFragment extends Fragment {
 
                 if (dy > 0) {
                     if ((layoutManager.getChildCount() + layoutManager.findFirstVisibleItemPosition()) >= layoutManager.getItemCount()) {
-                        nextSearchAction();
+                        presenter.nextSearch();
                     }
                 }
             }
@@ -193,107 +169,58 @@ public class ChoiceFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void observeItems(LiveData<List<DeezerTrack>> liveData) {
+
+        liveData.observe(ChoiceFragment.this, getTrackes -> {
+            deezerTrackArrayList.clear();
+            deezerTrackArrayList.addAll(getTrackes);
+            songListAdapter.notifyDataSetChanged();
+        });
+    }
+    @Override
+    public void stopObserveItems(LiveData<List<DeezerTrack>> liveData)  {
+        liveData.removeObservers(ChoiceFragment.this);
+    }
+
+
     public void setResult(String string) {
         titleTrackInput.setText(string);
-        loadRepos(string);
-
-
-    }
-
-    public void searchAction() {
-        String title = titleTrackInput.getText().toString().trim();
-        if (TextUtils.isEmpty(title)) {
-            titleTrackInput.requestFocus();
-        } else {
-            KeyboardUtils.hide(titleTrackInput);
-            loadRepos(title);
-            titleSearch.add(title);
-            SaveSearchHistory.setTitleSearch(getContext(), gson.toJson(titleSearch));
-        }
-    }
-
-    public void nextSearchAction() {
-       String title = SaveSearchHistory.getInputSearch(getContext());
-       if(deezerResponse!=null) {
-           if (!TextUtils.isEmpty(deezerResponse.getNext())) {
-               nextCount = nextCount + 25;
-               nextLoadRepos(title, nextCount);
-
-           }
-       }
-
-    }
-
-    public void nextLoadRepos(String string, int nextCount) {
-
-        showProgressBlock();
-        RestClient.getsInstance().getService().getData(string, nextCount).enqueue(new ApiCallback<DeezerResponse>() {
-            @Override
-            public void success(Response<DeezerResponse> response) {
-                db.getPersonDao().insertAllTracks(response.body().getData());
-                songListAdapter.notifyDataSetChanged();
-                deezerResponse = response.body();
-                hideProgressBlock();
-
-            }
-
-            @Override
-            public void failure(DeezerRepoErrorItem deezerRepoErrorItem) {
-                if (TextUtils.isEmpty(deezerRepoErrorItem.getCode())) {
-                    makeErrorToast("Error occurred during request: " + deezerRepoErrorItem.getMessage());
-                } else {
-                    makeErrorToast(deezerRepoErrorItem.getMessage() + "Code error:" + deezerRepoErrorItem.getCode());
-                }
-
-                hideProgressBlock();
-            }
-
-
-        });
+        presenter.loadRepos(string);
     }
 
 
-    public void loadRepos(String title) {
-        showProgressBlock();
-        RestClient.getsInstance().getService().getData(title).enqueue(new ApiCallback<DeezerResponse>() {
-            @Override
-            public void success(Response<DeezerResponse> response) {
-                db.getPersonDao().deleteAllTracks();
-                nextCount = 0;
-                db.getPersonDao().insertAllTracks(response.body().getData());
-                songListAdapter.notifyDataSetChanged();
-                deezerResponse = response.body();
-                hideProgressBlock();
-                SaveSearchHistory.setInputSearch(getContext(),title);
-            }
-
-            @Override
-            public void failure(DeezerRepoErrorItem deezerRepoErrorItem) {
-                if (TextUtils.isEmpty(deezerRepoErrorItem.getCode())) {
-                    makeErrorToast("Error occurred during request: " + deezerRepoErrorItem.getMessage());
-                } else {
-                    makeErrorToast(deezerRepoErrorItem.getMessage() + "Code error:" + deezerRepoErrorItem.getCode());
-                }
-
-                hideProgressBlock();
-            }
-
-
-        });
+    @Override
+    public void  showErorrInput(){
+        titleTrackInput.requestFocus();
     }
 
-
-    private void makeErrorToast(String errorMessage) {
+    @Override
+    public void makeErrorToast(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
-    private void showProgressBlock() {
+    @Override
+    public void hideKeyboard(){
+        KeyboardUtils.hide(titleTrackInput);
+
+    }
+
+    @Override
+    public void setLostSearch(String lostSearch) {
+        titleTrackInput.setText(lostSearch);
+    }
+
+    @Override
+    public void showProgressBlock() {
         if (loaderBlock != null) {
             loaderBlock.setVisibility(View.VISIBLE);
         }
     }
 
-    private void hideProgressBlock() {
+    @Override
+    public void hideProgressBlock() {
         if (loaderBlock != null) {
             loaderBlock.setVisibility(View.GONE);
         }
@@ -303,4 +230,13 @@ public class ChoiceFragment extends Fragment {
     public void setOnSongListener(OnSongListener onSongListener) {
         this.onSongListener = onSongListener;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.dropView();
+    }
+
+
+
 }

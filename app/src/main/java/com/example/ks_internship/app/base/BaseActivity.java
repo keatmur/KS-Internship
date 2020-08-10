@@ -19,6 +19,10 @@ public  class BaseActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
 
+    public AppDatabase getDatabase() {
+        return ((AppKsInternship) getApplication()).getDatabase();
+    }
+
     public void openActivityHistory(){
         Intent intent = new Intent(BaseActivity.this, ThirdActivity.class);
         startActivityForResult(intent,Constants.RESULT_COD);

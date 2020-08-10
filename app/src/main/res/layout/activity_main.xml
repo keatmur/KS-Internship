@@ -7,9 +7,8 @@
     tools:context=".app.activity.MainActivity">
 
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragmet_choice"
-        android:name="com.example.ks_internship.app.fragment.ChoiceFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/default_middle_margin"

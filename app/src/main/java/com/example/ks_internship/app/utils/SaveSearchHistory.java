@@ -4,29 +4,36 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 
+import com.example.ks_internship.app.activity.MainActivity;
+
 import java.util.ArrayList;
 import java.util.Set;
 
 public class SaveSearchHistory {
+    private Context context;
 
-    private static  SharedPreferences getPrefs(Context context){
+    public SaveSearchHistory(Context context) {
+        this.context=context;
+    }
+
+    private SharedPreferences getPrefs(){
         return context.getSharedPreferences(Constants.PREFD_NAME,Context.MODE_PRIVATE);
     }
-    public static void setInputSearch(Context context, String strings) {
-        getPrefs(context).edit().putString(Constants.PRFED_INPUT_SEARCH,  strings).apply(); //TODO: or commit()?
+    public  void setInputSearch( String strings) {
+        getPrefs().edit().putString(Constants.PRFED_INPUT_SEARCH,  strings).apply(); //TODO: or commit()?
     }
-    public static String getInputSearch(Context context) {
-        return getPrefs(context).getString(Constants.PRFED_INPUT_SEARCH,"");
-    }
-
-
-
-    public static void setTitleSearch(Context context, String strings) {
-        getPrefs(context).edit().putString(Constants.PRFED_TITLES,  strings).apply(); //TODO: or commit()?
+    public  String getInputSearch() {
+        return getPrefs().getString(Constants.PRFED_INPUT_SEARCH,"");
     }
 
-    public static String getTitles(Context context) {
-        return getPrefs(context).getString(Constants.PRFED_TITLES,"");
+
+
+    public  void setTitleSearch( String strings) {
+        getPrefs().edit().putString(Constants.PRFED_TITLES,  strings).apply(); //TODO: or commit()?
+    }
+
+    public  String getTitles() {
+        return getPrefs().getString(Constants.PRFED_TITLES,"");
     }
 
 
