@@ -89,6 +89,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void setArrayList(List<String> list) {
         adapter.setArrayList(list);
+        adapter.notifyDataSetChanged();
     }
 
 }
